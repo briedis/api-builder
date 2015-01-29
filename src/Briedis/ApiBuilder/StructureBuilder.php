@@ -5,6 +5,7 @@ namespace Briedis\ApiBuilder;
 
 
 use Briedis\ApiBuilder\Items\BaseItem;
+use Briedis\ApiBuilder\Items\Boolean;
 use Briedis\ApiBuilder\Items\Float;
 use Briedis\ApiBuilder\Items\Integer;
 use Briedis\ApiBuilder\Items\String;
@@ -71,6 +72,16 @@ class StructureBuilder{
 	}
 
 	/**
+	 * Boolean type
+	 * @param string $name
+	 * @param string $description
+	 * @return StructureBuilder
+	 */
+	public function boolean($name, $description = ''){
+		return $this->addItem(new Boolean($name, $description));
+	}
+
+	/**
 	 * Set item as another structure
 	 * @param string $name
 	 * @param StructureBuilder $structure
@@ -98,6 +109,9 @@ class StructureBuilder{
 	 * @return self
 	 */
 	public function enum(array $values){
+		if($this->lastItem instanceof Structure || $this->lastItem instanceof Boolean){
+			throw new \InvalidArgumentException('Cannot mark this type as an enumerable');
+		}
 		$this->lastItem->isEnum = true;
 		$this->lastItem->enumValues = $values;
 		return $this;
