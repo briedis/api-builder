@@ -1,0 +1,20 @@
+{
+	"name": "briedis/api-builder",
+	"description": "",
+	"authors": [
+		{
+			"name": "Mārtiņš Briedis",
+			"email": "mbriedis@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"illuminate/support": "4.2.*"
+	},
+	"autoload": {
+		"psr-0": {
+			"Briedis\\ApiBuilder": "src/"
+		}
+	},
+	"minimum-stability": "stable"
+}
