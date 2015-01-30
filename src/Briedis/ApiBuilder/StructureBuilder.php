@@ -121,7 +121,7 @@ class StructureBuilder{
 	 * Mark item as an array
 	 * @return self
 	 */
-	public function many(){
+	public function multiple(){
 		$this->lastItem->isArray = true;
 		return $this;
 	}
