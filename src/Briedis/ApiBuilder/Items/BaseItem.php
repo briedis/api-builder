@@ -5,6 +5,7 @@ namespace Briedis\ApiBuilder\Items;
 
 
 class BaseItem{
+	const TYPE = 'mixed';
 
 	public $name = '';
 
