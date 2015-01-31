@@ -35,10 +35,21 @@ class StructureBuilder{
 		$this->structureName = $structureName;
 	}
 
-	private function addItem($item){
+	private function addItem(BaseItem $item){
 		$this->items[$item->name] = $item;
 		$this->lastItem = $item;
 		return $this;
+	}
+
+	public function getStructureName(){
+		return $this->structureName;
+	}
+
+	/**
+	 * @return BaseItem[]
+	 */
+	public function getItems(){
+		return $this->items;
 	}
 
 	/**
