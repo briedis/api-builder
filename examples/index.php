@@ -1,10 +1,12 @@
 <?php
+include __DIR__ . '/../vendor/autoload.php';
 
 use Briedis\ApiBuilder\ApiPresenter;
 
-include __DIR__ . '/../vendor/autoload.php';
-
 include __DIR__ . '/ExampleGetUserRequest.php';
+include __DIR__ . '/Structures/response/LocationStructure.php';
+include __DIR__ . '/Structures/response/UserStructure.php';
+include __DIR__ . '/Structures/request/UsersRequestStructure.php';
 
 $presenter = new ApiPresenter;
 $presenter->add(new ExampleGetUserRequest);

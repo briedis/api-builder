@@ -95,13 +95,13 @@ class StructureBuilder{
 	/**
 	 * Set item as another structure
 	 * @param string $name
-	 * @param StructureBuilder $structure
+	 * @param ApiStructureInterface $structure
 	 * @param string $description
 	 * @return StructureBuilder
 	 */
-	public function struct($name, StructureBuilder $structure, $description = ''){
+	public function struct($name, ApiStructureInterface $structure, $description = ''){
 		$item = new Structure($name, $description);
-		$item->structure = $structure;
+		$item->structure = $structure->getStructure();
 		return $this->addItem($item);
 	}
 
