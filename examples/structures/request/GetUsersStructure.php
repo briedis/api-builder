@@ -3,7 +3,7 @@
 
 use Briedis\ApiBuilder\StructureBuilder;
 
-class UsersRequestStructure implements \Briedis\ApiBuilder\ApiStructureInterface {
+class GetUsersStructure implements \Briedis\ApiBuilder\ApiStructureInterface {
 	/**
 	 * Get the structure object
 	 * @return \Briedis\ApiBuilder\StructureBuilder

@@ -12,7 +12,7 @@ class ExampleGetUserRequest extends AbstractApiMethod{
 	public $description = 'Get user by given ids. One or multiple users can be fetched at once';
 
 	public function getRequest(){
-		return (new UsersRequestStructure())->getStructure();
+		return (new GetUsersStructure())->getStructure();
 	}
 
 	public function getResponse(){
