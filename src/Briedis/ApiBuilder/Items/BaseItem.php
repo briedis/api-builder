@@ -31,4 +31,12 @@ class BaseItem{
 		$this->name = $name;
 		$this->description = $description;
 	}
+
+	/**
+	 * Get the type name
+	 * @return string
+	 */
+	public function getTypeName(){
+		return static::TYPE;
+	}
 }

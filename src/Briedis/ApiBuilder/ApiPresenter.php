@@ -118,11 +118,7 @@ class ApiPresenter{
 	}
 
 	private function getReadableItemType(BaseItem $item){
-		$type = $item::TYPE;
-
-		if($item instanceof Structure){
-			$type = $item->structure->getStructureName();
-		}
+		$type = $item->getTypeName();
 
 		if($item->isArray){
 			return $type . '[]';
