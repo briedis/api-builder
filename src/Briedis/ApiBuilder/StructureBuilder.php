@@ -11,7 +11,7 @@ use Briedis\ApiBuilder\Items\Integer;
 use Briedis\ApiBuilder\Items\String;
 use Briedis\ApiBuilder\Items\Structure;
 
-class StructureBuilder{
+class StructureBuilder implements ApiStructureInterface{
 	/**
 	 * @var string
 	 */
@@ -134,6 +134,14 @@ class StructureBuilder{
 	 */
 	public function multiple(){
 		$this->lastItem->isArray = true;
+		return $this;
+	}
+
+	/**
+	 * Get the structure object
+	 * @return self
+	 */
+	public function getStructure(){
 		return $this;
 	}
 }
