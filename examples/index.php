@@ -9,6 +9,12 @@ include __DIR__ . '/Structures/response/UserStructure.php';
 include __DIR__ . '/Structures/request/GetUsersStructure.php';
 
 $presenter = new ApiPresenter;
+
+// Set a translation callback, if needed
+$presenter->setTranslateCallback(function ($key){
+	return $key; // Call your trans() function
+});
+
 $presenter->add(new ExampleGetUserRequest);
 
 ?>

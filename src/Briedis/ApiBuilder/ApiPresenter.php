@@ -12,6 +12,13 @@ class ApiPresenter{
 	private $apiMethods;
 
 	/**
+	 * Callable for translating title and description
+	 * @var callable (string $string)
+	 */
+	private $callbackTranslate;
+
+
+	/**
 	 * Initialize presenter with api methods
 	 * @param AbstractApiMethod[] $apiMethods
 	 */
@@ -42,13 +49,13 @@ class ApiPresenter{
 		$responseHtml = $this->getStructureTable($apiMethod->getResponse());
 
 		$html = "
-			<h1>{$apiMethod->title}</h1>
+			<h1>{$this->translate($apiMethod->title)}</h1>
 			<h2>URI</h2>
 			{$apiMethod->uri}
 			<h2>Method</h2>
 			{$apiMethod->method}
 			<h2>Description</h2>
-			<p>{$apiMethod->description}</p>
+			<p>{$this->translate($apiMethod->description)}</p>
 			<h2>Request</h2>
 			{$requestHtml}
 			<h2>Response</h2>
@@ -89,7 +96,7 @@ class ApiPresenter{
 					<tr>
 						<td>{$item->name}{$required}</td>
 						<td>{$this->getReadableItemType($item)}</td>
-						<td>{$item->description}</td>
+						<td>{$this->translate($item->description)}</td>
 					</tr>
 			";
 			if($item instanceof Structure){
@@ -126,5 +133,21 @@ class ApiPresenter{
 		}
 
 		return $type;
+	}
+
+	/**
+	 * Set a translation callback for method titles, descriptions, for parameter descriptions
+	 * If no callback is set, no translations are made
+	 * @param callable $callback
+	 */
+	public function setTranslateCallback(callable $callback){
+		$this->callbackTranslate = $callback;
+	}
+
+	protected function translate($string){
+		if(is_callable($this->callbackTranslate)){
+			return call_user_func($this->callbackTranslate, $string);
+		}
+		return $string;
 	}
 }
