@@ -27,4 +27,8 @@ class ApiBuilderServiceProvider extends ServiceProvider{
 	public function provides(){
 		return array();
 	}
+
+	public function boot(){
+		$this->package('briedis/api-builder');
+	}
 }

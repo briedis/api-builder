@@ -2,8 +2,7 @@
 namespace Briedis\ApiBuilder;
 
 
-use Briedis\ApiBuilder\Items\BaseItem;
-use Briedis\ApiBuilder\Items\Structure;
+use View;
 
 class ApiPresenter{
 	/**
@@ -17,6 +16,11 @@ class ApiPresenter{
 	 */
 	private $callbackTranslate;
 
+	/**
+	 * API domain WITHOUT trailing slash
+	 * @var string
+	 */
+	private $domain;
 
 	/**
 	 * Initialize presenter with api methods
@@ -44,91 +48,10 @@ class ApiPresenter{
 	}
 
 	private function getHtml(AbstractApiMethod $apiMethod){
-		$requestHtml = $this->getStructureTable($apiMethod->getRequest());
-
-		$responseHtml = $this->getStructureTable($apiMethod->getResponse());
-
-		$html = "
-			<h1>{$this->translate($apiMethod->title)}</h1>
-			<h2>URI</h2>
-			{$apiMethod->uri}
-			<h2>Method</h2>
-			{$apiMethod->method}
-			<h2>Description</h2>
-			<p>{$this->translate($apiMethod->description)}</p>
-			<h2>Request</h2>
-			{$requestHtml}
-			<h2>Response</h2>
-			{$responseHtml}
-		";
-
-		return $html;
-	}
-
-	private function getStructureTable(StructureBuilder $structure){
-		$table = "
-			<table class='table' width='100%'>
-				<thead>
-					<tr>
-						<th>Parameter</th>
-						<th>Type</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					{$this->getStructureTableRows($structure)}
-				</tbody>
-			</table>
-		";
-
-		return $table;
-	}
-
-	/**
-	 * @param StructureBuilder $structure
-	 * @return string HTML
-	 */
-	private function getStructureTableRows(StructureBuilder $structure){
-		$rows = '';
-		foreach($structure->getItems() as $item){
-			$required = $item->isOptional ? '' : '*';
-			$rows .= "
-					<tr>
-						<td>{$item->name}{$required}</td>
-						<td>{$this->getReadableItemType($item)}</td>
-						<td>{$this->translate($item->description)}</td>
-					</tr>
-			";
-			if($item instanceof Structure){
-				$rows .= "
-						<tr>
-							<td colspan='3'>
-								<table class='table-responsive' width='100%'>
-									<tr>
-										<td width='60'>&nbsp;</td>
-										<td>{$this->getStructureTable($item->structure)}</td>
-									</tr>
-								</table>
-							</td>
-						<tr>
-				";
-			}
-		}
-		return $rows;
-	}
-
-	private function getReadableItemType(BaseItem $item){
-		$type = $item->getTypeName();
-
-		if($item->isArray){
-			return $type . '[]';
-		}
-
-		if($item->isEnum){
-			return '{' . implode(', ', $item->enumValues) . '}';
-		}
-
-		return $type;
+		return View::make('api-builder::method', [
+			'apiMethod' => $apiMethod,
+			'presenter' => $this,
+		])->render();
 	}
 
 	/**
@@ -140,10 +63,28 @@ class ApiPresenter{
 		$this->callbackTranslate = $callback;
 	}
 
-	protected function translate($string){
+	public function translate($string){
 		if(is_callable($this->callbackTranslate)){
 			return call_user_func($this->callbackTranslate, $string);
 		}
 		return $string;
+	}
+
+	/**
+	 * Set API domain
+	 * @param string $domain
+	 * @return self
+	 */
+	public function setDomain($domain){
+		$this->domain = $domain;
+		return $this;
+	}
+
+	/**
+	 * Get API domain
+	 * @return string
+	 */
+	public function getDomain(){
+		return $this->domain;
 	}
 }

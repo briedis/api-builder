@@ -10,7 +10,7 @@ class Structure extends BaseItem{
 	/** @var StructureBuilder */
 	public $structure;
 
-	public function getTypeName(){
+	public function getDisplayTypeName(){
 		return $this->structure->getStructureName();
 	}
 }

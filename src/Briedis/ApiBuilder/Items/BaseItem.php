@@ -56,7 +56,17 @@ class BaseItem{
 	 * Get the type name
 	 * @return string
 	 */
-	public function getTypeName(){
-		return static::TYPE;
+	public function getDisplayTypeName(){
+		$type = static::TYPE;
+
+		if($this->isArray){
+			return $type . '[]';
+		}
+
+		if($this->isEnum){
+			return '{' . implode(', ', $this->enumValues) . '}';
+		}
+
+		return $type;
 	}
 }
