@@ -11,14 +11,14 @@ echo HTML::script('packages/briedis/api-builder/script.js');
 
 ?>
 <div class="api-builder">
-	<a name="<?= $apiMethod->uri; ?>"></a>
+	<a name="<?= $apiMethod::URI; ?>"></a>
 
 	<div class="api-method">
 		<h1><?= $apiMethod->title; ?></h1>
 
 		<div class="call-url">
-			<span class="method method-<?= strtolower($apiMethod->method); ?>"><?= $apiMethod->method; ?></span>
-			<span class="domain"><?=$presenter->getDomain();?>/</span><span class="uri"><?= $apiMethod->uri; ?></span></div>
+			<span class="method method-<?= strtolower($apiMethod::METHOD); ?>"><?= $apiMethod::METHOD; ?></span>
+			<span class="domain"><?=$presenter->getDomain();?>/</span><span class="uri"><?= $apiMethod::URI; ?></span></div>
 
 		<ul class="nav nav-tabs">
 			<li class="active">

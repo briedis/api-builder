@@ -6,16 +6,14 @@ namespace Briedis\ApiBuilder;
 
 abstract class AbstractApiMethod{
 	/**
-	 * Requests uri
-	 * @var string
+	 * Requests uri (without trailing and preceding slashes)
 	 */
-	public $uri = '';
+	const URI = '';
 
 	/**
-	 * Requests method
-	 * @var string
+	 * Requests method, GET, POST, .. (uppercase)
 	 */
-	public $method = 'GET';
+	const METHOD = 'GET';
 
 	/**
 	 * Descriptive title
@@ -39,4 +37,13 @@ abstract class AbstractApiMethod{
 	 * @return StructureBuilder
 	 */
 	abstract public function getResponse();
+
+	/**
+	 * Helper function for easier structure building
+	 * @param string $structureName
+	 * @return StructureBuilder
+	 */
+	protected function s($structureName = ''){
+		return new StructureBuilder($structureName);
+	}
 }

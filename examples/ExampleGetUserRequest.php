@@ -5,7 +5,9 @@ use Briedis\ApiBuilder\AbstractApiMethod;
 use Briedis\ApiBuilder\StructureBuilder;
 
 class ExampleGetUserRequest extends AbstractApiMethod{
-	public $uri = 'user/get';
+	const URI = 'user/get';
+
+	const METHOD = 'GET';
 
 	public $title = 'User information';
 
