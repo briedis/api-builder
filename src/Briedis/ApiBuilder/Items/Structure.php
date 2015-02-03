@@ -9,8 +9,4 @@ use Briedis\ApiBuilder\StructureBuilder;
 class Structure extends BaseItem{
 	/** @var StructureBuilder */
 	public $structure;
-
-	public function getDisplayTypeName(){
-		return $this->structure->getStructureName();
-	}
 }

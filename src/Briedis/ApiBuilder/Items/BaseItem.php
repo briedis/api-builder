@@ -59,8 +59,12 @@ class BaseItem{
 	public function getDisplayTypeName(){
 		$type = static::TYPE;
 
+		if($this instanceof Structure){
+			$type = $this->structure->getStructureName();
+		}
+
 		if($this->isArray){
-			return $type . '[]';
+			return $type . ' [ ]';
 		}
 
 		if($this->isEnum){
