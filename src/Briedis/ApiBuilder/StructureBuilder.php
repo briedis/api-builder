@@ -10,6 +10,7 @@ use Briedis\ApiBuilder\Items\Float;
 use Briedis\ApiBuilder\Items\Integer;
 use Briedis\ApiBuilder\Items\String;
 use Briedis\ApiBuilder\Items\Structure;
+use Briedis\ApiBuilder\Items\Upload;
 
 class StructureBuilder implements ApiStructureInterface{
 	/**
@@ -90,6 +91,16 @@ class StructureBuilder implements ApiStructureInterface{
 	 */
 	public function boolean($name, $description = ''){
 		return $this->addItem(new Boolean($name, $description));
+	}
+
+	/**
+	 * File upload type
+	 * @param string $name
+	 * @param string $description
+	 * @return StructureBuilder
+	 */
+	public function upload($name, $description = ''){
+		return $this->addItem(new Upload($name, $description));
 	}
 
 	/**
