@@ -5,11 +5,14 @@
 
 Library helps you build a documentation for your api, and you can even use it to validate request parameters
 
-#### Composer usage:
-
+#### Usage
+1. Add composer dependency and rund `composer update`
 ```
 "briedis/api-builder": "0.*"
 ```
+2. Add service provider: `Briedis\ApiBuilder\ApiBuilderServiceProvider`
+3. Publish assets: `php artisan asset:publish briedis/api-builder`
+
 
 #### Request class
 ```php
