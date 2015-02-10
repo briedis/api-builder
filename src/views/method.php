@@ -6,9 +6,6 @@
 
 use Briedis\ApiBuilder\AbstractApiMethod;
 
-echo HTML::style('packages/briedis/api-builder/style.css');
-echo HTML::script('packages/briedis/api-builder/script.js');
-
 ?>
 <div class="api-builder">
 	<a name="<?= $apiMethod::URI; ?>"></a>

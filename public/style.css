@@ -7,9 +7,10 @@
 }
 
 .api-builder .api-method h1 {
-	margin: 0 0 15px;
+	margin: 0 0 10px;
 	padding: 0;
 	font-weight: 600;
+	font-size: 15px;
 }
 
 .api-builder .api-method .call-url {

@@ -40,14 +40,20 @@ class ApiPresenter{
 	}
 
 	public function render(){
-		$html = '';
+		$methodHtml = '';
+
 		foreach($this->apiMethods as $v){
-			$html .= $this->getHtml($v);
+			$methodHtml .= $this->getMethodHtml($v);
 		}
-		return $html;
+
+		$pageView = View::make('api-builder::page', [
+			'methodHtml' => $methodHtml,
+		]);
+
+		return $pageView->render();
 	}
 
-	private function getHtml(AbstractApiMethod $apiMethod){
+	private function getMethodHtml(AbstractApiMethod $apiMethod){
 		return View::make('api-builder::method', [
 			'apiMethod' => $apiMethod,
 			'presenter' => $this,
