@@ -3,7 +3,9 @@
  * @var string $methodHtml Method contents
  */
 
-echo HTML::style('packages/briedis/api-builder/style.css');
-echo HTML::script('packages/briedis/api-builder/script.js');
+?>
+	<script src="<?= URL::to('packages/briedis/api-builder/script.js'); ?>" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="<?= URL::to('packages/briedis/api-builder/style.css'); ?>"/>
+<?
 
 echo $methodHtml;
