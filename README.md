@@ -1,4 +1,4 @@
-# api-builder for Laravel 4.2 (Visit [here](/briedis/api-builder/tree/laravel-5) for Laravel 5 supported version)
+# api-builder for Laravel 4.2 (Visit [here](https://github.com/briedis/api-builder/tree/laravel-5) for Laravel 5 supported version)
 
 [![Latest Stable Version](https://poser.pugx.org/briedis/api-builder/v/stable.svg)](https://packagist.org/packages/briedis/api-builder)
 [![Latest Unstable Version](https://poser.pugx.org/briedis/api-builder/v/unstable.svg)](https://packagist.org/packages/briedis/api-builder)
