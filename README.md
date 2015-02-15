@@ -1,4 +1,4 @@
-# api-builder
+# api-builder for Laravel 5
 
 [![Latest Stable Version](https://poser.pugx.org/briedis/api-builder/v/stable.svg)](https://packagist.org/packages/briedis/api-builder)
 [![Latest Unstable Version](https://poser.pugx.org/briedis/api-builder/v/unstable.svg)](https://packagist.org/packages/briedis/api-builder)
@@ -6,9 +6,9 @@
 Library helps you build a documentation for your api, and you can even use it to validate request parameters
 
 #### Usage
-1. Add composer dependency `"briedis/api-builder": "0.*"` and run `composer update`
+1. Add composer dependency `"briedis/api-builder": "2.*"` and run `composer update`
 2. Add service provider: `Briedis\ApiBuilder\ApiBuilderServiceProvider`
-3. Publish assets: `php artisan asset:publish briedis/api-builder`
+3. Publish assets: `php artisan vendor:publish`
 
 
 #### Request class
