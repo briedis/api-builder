@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * @var AbstractApiMethod $apiMethod
  * @var \Briedis\ApiBuilder\ApiPresenter $presenter
