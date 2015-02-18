@@ -4,6 +4,6 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class Upload extends BaseItem {
+class Upload extends BaseItem{
 	const TYPE = 'upload';
 }

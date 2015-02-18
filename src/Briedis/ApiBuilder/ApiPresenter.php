@@ -6,9 +6,9 @@ use View;
 
 class ApiPresenter{
 	/**
-	 * @var AbstractApiMethod[]
+	 * @var AbstractApiMethod[]|MethodGroup[]
 	 */
-	private $apiMethods;
+	private $methodsOrGroups;
 
 	/**
 	 * Callable for translating title and description
@@ -24,25 +24,25 @@ class ApiPresenter{
 
 	/**
 	 * Initialize presenter with api methods
-	 * @param AbstractApiMethod[] $apiMethods
+	 * @param AbstractApiMethod[]|MethodGroup[] $apiMethods
 	 */
 	public function __construct(array $apiMethods = []){
-		$this->apiMethods = $apiMethods;
+		$this->methodsOrGroups = $apiMethods;
 	}
 
 	/**
-	 * @param AbstractApiMethod $apiMethod
+	 * @param AbstractApiMethod|MethodGroup $methodOrGroup
 	 * @return self
 	 */
-	public function add(AbstractApiMethod $apiMethod){
-		$this->apiMethods[] = $apiMethod;
+	public function add($methodOrGroup){
+		$this->methodsOrGroups[] = $methodOrGroup;
 		return $this;
 	}
 
 	public function render(){
 		$methodHtml = '';
 
-		foreach($this->apiMethods as $v){
+		foreach($this->methodsOrGroups as $v){
 			$methodHtml .= $this->getMethodHtml($v);
 		}
 
@@ -53,9 +53,31 @@ class ApiPresenter{
 		return $pageView->render();
 	}
 
-	private function getMethodHtml(AbstractApiMethod $apiMethod){
+	public function renderTOC(){
+		return View::make('api-builder::toc', [
+			'items' => $this->methodsOrGroups,
+		])->render();
+	}
+
+	/**
+	 * Output method or a group of methods
+	 * @param AbstractApiMethod|MethodGroup $apiMethodOrGroup
+	 * @return mixed
+	 */
+	private function getMethodHtml($apiMethodOrGroup){
+		if(!($apiMethodOrGroup instanceof AbstractApiMethod) && !($apiMethodOrGroup instanceof MethodGroup)){
+			throw new \InvalidArgumentException('Bad apiMethod type given');
+		}
+
+		if($apiMethodOrGroup instanceof MethodGroup){
+			return View::make('api-builder::group', [
+				'group' => $apiMethodOrGroup,
+				'presenter' => $this,
+			])->render();
+		}
+
 		return View::make('api-builder::method', [
-			'apiMethod' => $apiMethod,
+			'apiMethod' => $apiMethodOrGroup,
 			'presenter' => $this,
 		])->render();
 	}
