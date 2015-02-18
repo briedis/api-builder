@@ -27,6 +27,6 @@ foreach($structureBuilder->getItems() as $v){
 		<div class="sub">
 			<?= View::make('api-builder::structure', ['structureBuilder' => $v->structure])->render(); ?>
 		</div>
-    <?php
+	<?php
 	}
 }

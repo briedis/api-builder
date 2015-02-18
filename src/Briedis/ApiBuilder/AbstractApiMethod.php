@@ -46,4 +46,20 @@ abstract class AbstractApiMethod{
 	protected function s($structureName = ''){
 		return new StructureBuilder($structureName);
 	}
+
+	/**
+	 * Get URL for this method within the documentation page
+	 * @return string
+	 */
+	public function getDocUrl(){
+		return '#' . $this->getDocElementName();
+	}
+
+	/**
+	 * Get <a name=..> for documentation page element
+	 * @return string
+	 */
+	public function getDocElementName(){
+		return static::METHOD . '/' . static::URI;
+	}
 }

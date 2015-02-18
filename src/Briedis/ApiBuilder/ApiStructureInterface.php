@@ -4,7 +4,7 @@
 namespace Briedis\ApiBuilder;
 
 
-interface ApiStructureInterface {
+interface ApiStructureInterface{
 	/**
 	 * Get the structure object
 	 * @return StructureBuilder

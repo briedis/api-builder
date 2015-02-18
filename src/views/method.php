@@ -8,14 +8,15 @@ use Briedis\ApiBuilder\AbstractApiMethod;
 
 ?>
 <div class="api-builder">
-	<a name="<?= $apiMethod::URI; ?>"></a>
+	<a name="<?= htmlspecialchars($apiMethod->getDocElementName()); ?>"></a>
 
 	<div class="api-method">
 		<h1><?= $apiMethod->title; ?></h1>
 
 		<div class="call-url">
 			<span class="method method-<?= strtolower($apiMethod::METHOD); ?>"><?= $apiMethod::METHOD; ?></span>
-			<span class="domain"><?=$presenter->getDomain();?>/</span><span class="uri"><?= $apiMethod::URI; ?></span></div>
+			<span class="domain"><?= $presenter->getDomain(); ?>/</span><span class="uri"><?= $apiMethod::URI; ?></span>
+		</div>
 
 		<ul class="nav nav-tabs">
 			<li class="active">
