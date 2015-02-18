@@ -4,6 +4,8 @@
 namespace Briedis\ApiBuilder;
 
 
+use Illuminate\Support\Str;
+
 abstract class AbstractApiMethod{
 	/**
 	 * Requests uri (without trailing and preceding slashes)
@@ -60,6 +62,6 @@ abstract class AbstractApiMethod{
 	 * @return string
 	 */
 	public function getDocElementName(){
-		return static::METHOD . '/' . static::URI;
+		return Str::slug(static::METHOD . '-' . static::URI);
 	}
 }

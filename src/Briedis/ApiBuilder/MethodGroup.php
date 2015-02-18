@@ -4,6 +4,8 @@
 namespace Briedis\ApiBuilder;
 
 
+use Illuminate\Support\Str;
+
 class MethodGroup{
 	/**
 	 * @var AbstractApiMethod[]|MethodGroup[]
@@ -57,6 +59,6 @@ class MethodGroup{
 	 * @return string
 	 */
 	public function getDocElementName(){
-		return 'api-docs/group/' . $this->title;
+		return Str::slug('group-' . $this->title);
 	}
 }

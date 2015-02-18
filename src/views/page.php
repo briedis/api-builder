@@ -5,7 +5,7 @@
 
 ?>
 	<script src="<?= URL::to('packages/briedis/api-builder/script.js'); ?>" type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css" href="<?= URL::to('packages/briedis/api-builder/style.css'); ?>"/>
+	<link rel="stylesheet" href="<?= URL::to('packages/briedis/api-builder/style.css'); ?>" property='stylesheet'>
 <?php
 
 echo $methodHtml;

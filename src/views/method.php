@@ -7,8 +7,7 @@
 use Briedis\ApiBuilder\AbstractApiMethod;
 
 ?>
-<div class="api-builder">
-	<a name="<?= htmlspecialchars($apiMethod->getDocElementName()); ?>"></a>
+<div class="api-builder" id="<?= htmlspecialchars($apiMethod->getDocElementName()); ?>">
 
 	<div class="api-method">
 		<h1><?= $apiMethod->title; ?></h1>

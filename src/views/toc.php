@@ -8,7 +8,11 @@ use Briedis\ApiBuilder\MethodGroup;
 
 
 $outputMethod = function (AbstractApiMethod $method){
-	$html = '<li><a href="' . htmlspecialchars($method->getDocUrl()) . '">' . $method->title . '</a></li>';
+	$html = '
+		<li>
+			<a href="' . htmlspecialchars($method->getDocUrl()) . '">' . $method->title . '</a>
+		</li>
+	';
 
 	return $html;
 };
@@ -30,15 +34,15 @@ $outputArray = function (array $items) use (&$outputGroup, &$outputMethod){
 
 $outputGroup = function (MethodGroup $group) use (&$outputArray){
 	$html = '
-		<ul>
+		<li>
 			<a href="' . htmlspecialchars($group->getDocUrl()) . '"><b>' . $group->getTitle() . '</b></a>
 			<ul>
 			' . $outputArray($group->getItems()) . '
 			</ul>
-		</ul>
+		</li>
 	';
 	return $html;
 };
 
 
-echo $outputArray($items);
+echo '<ul>' . $outputArray($items) . '</ul>';

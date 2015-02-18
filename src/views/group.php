@@ -6,8 +6,7 @@
  */
 
 ?>
-	<a name="<?= htmlspecialchars($group->getDocElementName()); ?>"></a>
-	<h1><?= $group->getTitle(); ?></h1>
+	<h1 id="<?= htmlspecialchars($group->getDocElementName()); ?>"><?= $group->getTitle(); ?></h1>
 <?php
 foreach($group->getItems() as $v){
 	echo View::make('api-builder::method', [
