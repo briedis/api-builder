@@ -8,16 +8,17 @@ use Briedis\ApiBuilder\Items\String;
 
 class TypeTest extends PHPUnit_Framework_TestCase{
 	public function testInteger(){
-		$type = new Integer;
-
 		$this->itemAssertTrue([
 			1,
 			-100,
 			0,
 			'1',
 			'1000',
-		], $type);
+		], new Integer);
 
+	}
+
+	public function testNotInteger(){
 		$this->itemAssertFalse([
 			1.1,
 			' ',
@@ -25,12 +26,10 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'',
 			'1 1',
 			'3.22',
-		], $type);
+		], new Integer);
 	}
 
-	public function testBoolean(){
-		$type = new Boolean;
-
+	public function testIsBoolean(){
 		$this->itemAssertTrue([
 			true,
 			false,
@@ -38,63 +37,71 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'false',
 			'1',
 			'0',
-		], $type);
+		], new Boolean);
+	}
 
+	public function testIsNotBoolean(){
 		$this->itemAssertFalse([
 			'a',
 			'123',
 			'-1',
 			'1a',
 			null,
-		], $type);
+		], new Boolean);
 	}
 
-	public function testFloat(){
-		$type = new Float;
-
+	public function testIsFloat(){
 		$this->itemAssertTrue([
 			'0.1',
 			'23345.233',
 			'-1223',
 			1.234,
 			1e2,
-		], $type);
+		], new Float);
+	}
 
+	public function testIsNotFloat(){
 		$this->itemAssertFalse([
 			'a',
 			'1a',
 			'a1',
-		], $type);
+			null,
+			false,
+			true,
+			'0xf4c3b00c',
+			'0b10100111001',
+			'0777',
+		], new Float);
 	}
 
-	public function testString(){
-		$type = new String;
-
+	public function testIsString(){
 		$this->itemAssertTrue([
 			'a',
 			'b',
 			'some string',
 			1234
-		], $type);
+		], new String);
+	}
 
+	public function testIsNotString(){
 		$this->itemAssertFalse([
 			null,
 			false,
 			true,
 			[],
 			new stdClass,
-		], $type);
+		], new String);
 	}
 
 	private function itemAssertTrue(array $values, BaseItem $item){
 		foreach($values as $v){
-			$this->assertTrue($item->validate($v), var_export($v, true) . ' is of type ' . $item->getDisplayTypeName());
+			$this->assertTrue($item->validate($v), var_export($v, true) . ' should be of type ' . $item->getDisplayTypeName());
 		}
 	}
 
 	private function itemAssertFalse(array $values, BaseItem $item){
 		foreach($values as $v){
-			$this->assertFalse($item->validate($v), var_export($v, true) . ' is not of type ' . $item->getDisplayTypeName());
+			$this->assertFalse($item->validate($v), var_export($v, true) . ' should NOT be of type ' . $item->getDisplayTypeName());
 		}
 	}
 }
