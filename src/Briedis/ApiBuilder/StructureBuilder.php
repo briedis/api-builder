@@ -19,7 +19,7 @@ class StructureBuilder implements ApiStructureInterface{
 	private $structureName;
 
 	/**
-	 * @var BaseItem[]
+	 * @var BaseItem[] [itemName => BaseItem, ..]
 	 */
 	private $items = [];
 
@@ -51,6 +51,15 @@ class StructureBuilder implements ApiStructureInterface{
 	 */
 	public function getItems(){
 		return $this->items;
+	}
+
+	/**
+	 * Find an item by parameter name
+	 * @param $itemName
+	 * @return BaseItem|null
+	 */
+	public function getItemByName($itemName){
+		return isset($this->items[$itemName]) ? $this->items[$itemName] : null;
 	}
 
 	/**
