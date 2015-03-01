@@ -4,7 +4,7 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class BaseItem{
+abstract class BaseItem{
 	const TYPE = 'mixed';
 
 	/**
@@ -73,4 +73,11 @@ class BaseItem{
 
 		return $type;
 	}
+
+	/**
+	 * Check if this value is valid for this item type
+	 * @param mixed $value
+	 * @return bool
+	 */
+	abstract public function validate($value);
 }
