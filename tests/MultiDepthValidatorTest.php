@@ -64,7 +64,7 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 		} catch(InvalidStructureException $e){
 			$caught = true;
 			$fields = $e->getBadFields();
-			$this->assertInstanceOf(Float::class, $fields['decimal'], 'Correct field is missing');
+			$this->assertInstanceOf(get_class(new Float), $fields['decimal'], 'Correct field is missing');
 			$this->assertEquals(1, count($fields), 'Bad parameter count matches');
 		}
 

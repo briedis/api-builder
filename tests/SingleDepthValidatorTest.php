@@ -45,7 +45,7 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase{
 		} catch(InvalidStructureException $e){
 			$caught = true;
 			$missing = $e->getMissingFields();
-			$this->assertInstanceOf(Integer::class, $missing['int'], 'Correct field is missing');
+			$this->assertInstanceOf(get_class(new Integer), $missing['int'], 'Correct field is missing');
 			$this->assertEquals(1, count($missing), 'Missing parameter count matches');
 		}
 
@@ -72,8 +72,8 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase{
 			$caught = true;
 			$fields = $e->getBadFields();
 
-			$this->assertInstanceOf(Integer::class, $fields['id'], 'Correct field is invalid');
-			$this->assertInstanceOf(Float::class, $fields['decimal'], 'Correct field is invalid');
+			$this->assertInstanceOf(get_class(new Integer), $fields['id'], 'Correct field is invalid');
+			$this->assertInstanceOf(get_class(new Float), $fields['decimal'], 'Correct field is invalid');
 			$this->assertEquals(2, count($fields), 'Bad parameter count matches');
 		}
 
