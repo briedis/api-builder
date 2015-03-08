@@ -43,18 +43,18 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 		$caught = false;
 
 		$this->s
-			->struct('s', (new SB)
+			->struct('s11', (new SB)
 				->float('decimal')
 			)
-			->struct('s2', (new SB)
+			->struct('s22', (new SB)
 				->float('decimal')
 			);
 
 		$input = [
-			's' => [
+			's11' => [
 				'decimal' => 'not a decimal',
 			],
-			's2' => [
+			's22' => [
 				'decimal' => 12345,
 			]
 		];
@@ -64,7 +64,7 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 		} catch(InvalidStructureException $e){
 			$caught = true;
 			$fields = $e->getBadFields();
-			$this->assertInstanceOf(get_class(new Float), $fields['decimal'], 'Correct field is missing');
+			$this->assertInstanceOf(get_class(new Float), $fields['s11.decimal'], 'Correct field is missing');
 			$this->assertEquals(1, count($fields), 'Bad parameter count matches');
 		}
 
@@ -73,11 +73,11 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 
 	public function testVeryDeepValidStructure(){
 		$this->s
-			->struct('s', (new SB)
-				->struct('s', (new SB)
-					->struct('s', (new SB)
-						->struct('s', (new SB)
-							->struct('s', (new SB)
+			->struct('s111', (new SB)
+				->struct('s222', (new SB)
+					->struct('s333', (new SB)
+						->struct('s444', (new SB)
+							->struct('s555', (new SB)
 								->int('id')
 							)
 						)
@@ -86,11 +86,11 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 			);
 
 		$input = [
-			's' => [
-				's' => [
-					's' => [
-						's' => [
-							's' => [
+			's111' => [
+				's222' => [
+					's333' => [
+						's444' => [
+							's555' => [
 								'id' => 123
 							]
 						]
@@ -100,5 +100,54 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 		];
 
 		$this->assertTrue($this->v->validate($input), 'Valid deep structure');
+	}
+
+
+	public function testWrongParameterDepth(){
+		$this->s
+			->string('1_1')
+			->struct('1_3', (new SB)
+				->string('2_1')
+				->struct('2_2', (new SB)
+					->string('3_1')
+					->struct('3_2', (new SB)
+						->struct('4_1', (new SB)
+							->boolean('5_1')
+							->int('5_2')
+						)
+					)
+				)
+			);
+
+		$input = [
+			'1_3' => [
+				'2_2' => [
+					'3_2' => [
+						'4_1' => [
+							'5_1' => 'Not boolean',
+							'5_2' => 'Not integer',
+						],
+					],
+				],
+			],
+		];
+
+		$badPaths = [
+			'1_3.2_2.3_2.4_1.5_1',
+			'1_3.2_2.3_2.4_1.5_2',
+		];
+
+		$badFields = [];
+
+
+		try{
+			$this->v->validate($input);
+		} catch(InvalidStructureException $e){
+			$badFields = $e->getBadFields();
+		}
+
+		foreach($badPaths as $v){
+			$this->assertTrue(isset($badFields[$v]), 'Field [' . $v . '] should be missing');
+		}
 	}
 }

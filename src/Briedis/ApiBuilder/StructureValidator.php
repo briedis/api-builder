@@ -14,11 +14,16 @@ class StructureValidator{
 	/** @var StructureBuilder */
 	private $structure;
 
+	/** @var array When validating recursively, this is where we keep the track of depth */
+	private $parameterDepthStack = [];
+
 	/**
 	 * @param StructureBuilder $structure Structure to be validated against
+	 * @param array $parameterDepthStack
 	 */
-	public function __construct(StructureBuilder $structure){
+	public function __construct(StructureBuilder $structure, array &$parameterDepthStack = []){
 		$this->structure = $structure;
+		$this->parameterDepthStack = $parameterDepthStack;
 	}
 
 	/**
@@ -32,13 +37,20 @@ class StructureValidator{
 
 		// Validate given fields if types match
 		foreach($input as $k => $v){
+			$this->parameterDepthStack[] = $k;
+
+			$parameterPath = implode('.', $this->parameterDepthStack);
+
 			try{
 				$this->validateParam($k, $v);
 			} catch(InvalidParameterTypeException $e){
-				$exception->addBadField($k, $e->expectedItem);
+				$exception->addBadField($parameterPath, $e->expectedItem);
 			} catch(UnexpectedParameterException $e){
-				$exception->addUnexpectedField($k);
+				$exception->addUnexpectedField($parameterPath);
 			}
+
+			// Pop the last value, because it passed through, no exception was thrown
+			array_pop($this->parameterDepthStack);
 		}
 
 		// Check for missing fields
@@ -72,7 +84,7 @@ class StructureValidator{
 
 		if($item instanceof Structure){
 			// Recursive validation
-			$validator = new self($item->structure);
+			$validator = new self($item->structure, $this->parameterDepthStack);
 			$validator->validate($value);
 		} else{
 			if(!$item->validate($value)){
