@@ -5,13 +5,18 @@
 
 Library helps you build a documentation for your api, and you can even use it to validate request parameters
 
-#### Usage
-1. Add composer dependency `"briedis/api-builder": "0.*"` and run `composer update`
-2. Add service provider for Laravel 4 `Briedis\ApiBuilder\ApiBuilderLaravel4ServiceProvider`
-3. Publish assets: `php artisan asset:publish briedis/api-builder`
+## Usage
+### Laravel 4
+1. Add composer dependency `"briedis/api-builder": "~1.0"` and run `composer update`
+2. Add service provider `Briedis\ApiBuilder\ApiBuilderLaravel4ServiceProvider`
+3. Publish assets public directory: `php artisan asset:publish briedis/api-builder`
 
+### Laravel 5
+1. Add composer dependency `"briedis/api-builder": "~1.0"` and run `composer update`
+2. Add service provider `Briedis\ApiBuilder\ApiBuilderLaravel5ServiceProvider`
+3. Publish assets to public directory: `php artisan vendor:publish --force --provider="Briedis\ApiBuilder\ApiBuilderLaravel5ServiceProvider"` (force means that existing files will be overwritten) 
 
-#### Request class
+## Request class
 ```php
 use Briedis\ApiBuilder\AbstractApiMethod;
 use Briedis\ApiBuilder\StructureBuilder;
@@ -36,7 +41,7 @@ class ExampleGetUserRequest extends AbstractApiMethod{
 }
 ```
 
-#### Structure class
+## Structure class
 ```php
 use Briedis\ApiBuilder\StructureBuilder;
 
@@ -64,7 +69,7 @@ class UserStructure implements ApiStructureInterface{
 }
 ```
 
-#### Outputting
+## Outputting
 ```php
 $presenter = new \Briedis\ApiBuilder\ApiPresenter([
 	new Requests\UsersRequest,
@@ -78,9 +83,5 @@ echo $presenter->render();
 ```
 
 
-#### TODO
-```
-// add grouping for output
-// automatic route generating
-// table of contents for api page
-```
+## TODO
+*  Automatic route generating
