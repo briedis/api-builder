@@ -1,4 +1,4 @@
-# api-builder for Laravel 4.2 (Visit [here](https://github.com/briedis/api-builder/tree/laravel-5) for Laravel 5 supported version)
+# api-builder for Laravel
 
 [![Latest Stable Version](https://poser.pugx.org/briedis/api-builder/v/stable.svg)](https://packagist.org/packages/briedis/api-builder)
 [![Latest Unstable Version](https://poser.pugx.org/briedis/api-builder/v/unstable.svg)](https://packagist.org/packages/briedis/api-builder)
@@ -7,7 +7,7 @@ Library helps you build a documentation for your api, and you can even use it to
 
 #### Usage
 1. Add composer dependency `"briedis/api-builder": "0.*"` and run `composer update`
-2. Add service provider: `Briedis\ApiBuilder\ApiBuilderServiceProvider`
+2. Add service provider for Laravel 4 `Briedis\ApiBuilder\ApiBuilderLaravel4ServiceProvider`
 3. Publish assets: `php artisan asset:publish briedis/api-builder`
 
 

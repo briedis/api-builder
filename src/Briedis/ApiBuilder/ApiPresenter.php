@@ -2,7 +2,7 @@
 namespace Briedis\ApiBuilder;
 
 
-use View;
+use Illuminate\Support\Facades\View;
 
 class ApiPresenter{
 	/**

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class ApiBuilderServiceProvider extends ServiceProvider{
+class ApiBuilderLaravel4ServiceProvider extends ServiceProvider{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
