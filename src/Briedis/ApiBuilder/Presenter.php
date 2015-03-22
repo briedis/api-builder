@@ -146,7 +146,7 @@ class Presenter{
 	public static function resourceUrl($path){
 		if(class_exists('URL')){
 			/** @noinspection PhpUndefinedClassInspection */
-			return URL::to(self::LARAVEL_RESOURCE_PREFIX . $path);
+			return \URL::to(self::LARAVEL_RESOURCE_PREFIX . $path);
 		}
 		return self::DEFAULT_RESOURCE_PREFIX . $path;
 	}
