@@ -2,8 +2,9 @@
 
 
 use Briedis\ApiBuilder\StructureBuilder;
+use Briedis\ApiBuilder\StructureInterface;
 
-class GetUsersStructure implements \Briedis\ApiBuilder\StructureInterface {
+class GetUsersStructure implements StructureInterface {
 	/**
 	 * Get the structure object
 	 * @return \Briedis\ApiBuilder\StructureBuilder

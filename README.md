@@ -9,21 +9,21 @@ Library helps you build a documentation for your api, and you can even use it to
 
 ## Usage
 ### Laravel 4
-1. Add composer dependency `"briedis/api-builder": "~1.0"` and run `composer update`
+1. Add composer dependency `"briedis/api-builder": "~1.0.0"` and run `composer update`
 2. Add service provider `Briedis\ApiBuilder\ApiBuilderLaravel4ServiceProvider`
 3. Publish assets public directory: `php artisan asset:publish briedis/api-builder`
 
 ### Laravel 5
-1. Add composer dependency `"briedis/api-builder": "~1.0"` and run `composer update`
+1. Add composer dependency `"briedis/api-builder": "~1.0.0"` and run `composer update`
 2. Add service provider `Briedis\ApiBuilder\ApiBuilderLaravel5ServiceProvider`
 3. Publish assets to public directory: `php artisan vendor:publish --force --provider="Briedis\ApiBuilder\ApiBuilderLaravel5ServiceProvider"` (force means that existing files will be overwritten) 
 
 ## Request class
 ```php
-use Briedis\ApiBuilder\AbstractApiMethod;
+use Briedis\ApiBuilder\Method;
 use Briedis\ApiBuilder\StructureBuilder;
 
-class ExampleGetUserRequest extends AbstractApiMethod{
+class ExampleGetUserRequest extends Method{
 	const URI = 'user/get';
 
 	const METHOD = 'GET';
@@ -33,21 +33,26 @@ class ExampleGetUserRequest extends AbstractApiMethod{
 	public $description = 'Get user by given ids. One or multiple users can be fetched at once';
 
 	public function getRequest(){
-		return (new GetUsersStructure())->getStructure();
+		return new GetUsersStructure;
 	}
 
 	public function getResponse(){
 		return (new StructureBuilder)
-			->struct('users', new UserStructure(), 'Array with user objects')->multiple();
+			->struct('users', new UserStructure, 'Array with user objects')->multiple();
 	}
 }
 ```
 
-## Structure class
+## Structure classes
 ```php
 use Briedis\ApiBuilder\StructureBuilder;
+use Briedis\ApiBuilder\StructureInterface;
 
-class GetUsersStructure implements \Briedis\ApiBuilder\ApiStructureInterface {
+class GetUsersStructure implements StructureInterface {
+	/**
+	 * Get the structure object
+	 * @return \Briedis\ApiBuilder\StructureBuilder
+	 */
 	public function getStructure(){
 		return (new StructureBuilder)
 			->int('userId', 'Array of user ids you want to fetch')->multiple()
@@ -56,27 +61,30 @@ class GetUsersStructure implements \Briedis\ApiBuilder\ApiStructureInterface {
 	}
 }
 
-class UserStructure implements ApiStructureInterface{
+class UserStructure implements StructureInterface{
+	/**
+	 * Get User structure object
+	 * @return StructureBuilder
+	 */
 	public function getStructure(){
 		return (new StructureBuilder('User'))
 			->int('id', 'Unique identifier')
-			->string('username', 'Nickname that will be used in the system')
-			->string('firstName', 'Users first name')
-			->string('lastName', 'Users last name')
-			->string('gender', 'M - male, F - female')->enum(['M', 'F'])->optional()
+			->str('username', 'Nickname that will be used in the system')
+			->str('firstName', 'Users first name')
+			->str('lastName', 'Users last name')
+			->str('gender', 'M - male, F - female')->values(['M', 'F'])->optional()
 			->int('signature', 'Provide your favorite quote or something, if you want')->optional()
 			->struct('location', new LocationStructure, 'Location object for the user')->optional()
-			->int('createdAt', 'Unix timestamp, when user has registered', '');
+			->int('createdAt', 'Unix timestamp, when user has registered');
 	}
 }
 ```
 
 ## Outputting
 ```php
-$presenter = new \Briedis\ApiBuilder\ApiPresenter([
-	new Requests\UsersRequest,
-	new Requests\ConversationsRequest,
-	new Requests\ConversationReplyRequest,
+$presenter = new \Briedis\ApiBuilder\Presenter([
+	new ExampleGetUserRequest,
+	// Add request class instances as needed
 ]);
 
 $presenter->setDomain('http://example/api/v1'));
