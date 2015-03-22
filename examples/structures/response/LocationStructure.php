@@ -1,10 +1,10 @@
 <?php
 
 
-use Briedis\ApiBuilder\ApiStructureInterface;
+use Briedis\ApiBuilder\StructureInterface;
 use Briedis\ApiBuilder\StructureBuilder;
 
-class LocationStructure implements ApiStructureInterface {
+class LocationStructure implements StructureInterface {
 	/**
 	 * @return \Briedis\ApiBuilder\StructureBuilder
 	 */

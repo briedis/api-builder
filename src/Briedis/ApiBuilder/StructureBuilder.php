@@ -12,7 +12,7 @@ use Briedis\ApiBuilder\Items\String;
 use Briedis\ApiBuilder\Items\Structure;
 use Briedis\ApiBuilder\Items\Upload;
 
-class StructureBuilder implements ApiStructureInterface{
+class StructureBuilder implements StructureInterface{
 	/**
 	 * @var string
 	 */
@@ -78,7 +78,7 @@ class StructureBuilder implements ApiStructureInterface{
 	 * @param string $description
 	 * @return StructureBuilder
 	 */
-	public function string($name, $description = ''){
+	public function str($name, $description = ''){
 		return $this->addItem(new String($name, $description));
 	}
 
@@ -98,7 +98,7 @@ class StructureBuilder implements ApiStructureInterface{
 	 * @param string $description
 	 * @return StructureBuilder
 	 */
-	public function boolean($name, $description = ''){
+	public function bool($name, $description = ''){
 		return $this->addItem(new Boolean($name, $description));
 	}
 
@@ -115,11 +115,11 @@ class StructureBuilder implements ApiStructureInterface{
 	/**
 	 * Set item as another structure
 	 * @param string $name
-	 * @param ApiStructureInterface $structure
+	 * @param StructureInterface $structure
 	 * @param string $description
 	 * @return StructureBuilder
 	 */
-	public function struct($name, ApiStructureInterface $structure, $description = ''){
+	public function struct($name, StructureInterface $structure, $description = ''){
 		$item = new Structure($name, $description);
 		$item->structure = $structure->getStructure();
 		return $this->addItem($item);
@@ -139,7 +139,7 @@ class StructureBuilder implements ApiStructureInterface{
 	 * @param array $values
 	 * @return self
 	 */
-	public function enum(array $values){
+	public function values(array $values){
 		if($this->lastItem instanceof Structure || $this->lastItem instanceof Boolean){
 			throw new \InvalidArgumentException('Cannot mark this type as an enumerable');
 		}

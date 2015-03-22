@@ -1,10 +1,10 @@
 <?php
 
 
-use Briedis\ApiBuilder\ApiStructureInterface;
+use Briedis\ApiBuilder\StructureInterface;
 use Briedis\ApiBuilder\StructureBuilder;
 
-class UserStructure implements ApiStructureInterface{
+class UserStructure implements StructureInterface{
 	/**
 	 * Get User structure object
 	 * @return StructureBuilder
@@ -12,12 +12,12 @@ class UserStructure implements ApiStructureInterface{
 	public function getStructure(){
 		return (new StructureBuilder('User'))
 			->int('id', 'Unique identifier')
-			->string('username', 'Nickname that will be used in the system')
-			->string('firstName', 'Users first name')
-			->string('lastName', 'Users last name')
-			->string('gender', 'M - male, F - female')->enum(['M', 'F'])->optional()
+			->str('username', 'Nickname that will be used in the system')
+			->str('firstName', 'Users first name')
+			->str('lastName', 'Users last name')
+			->str('gender', 'M - male, F - female')->values(['M', 'F'])->optional()
 			->int('signature', 'Provide your favorite quote or something, if you want')->optional()
 			->struct('location', new LocationStructure, 'Location object for the user')->optional()
-			->int('createdAt', 'Unix timestamp, when user has registered', '');
+			->int('createdAt', 'Unix timestamp, when user has registered');
 	}
 }

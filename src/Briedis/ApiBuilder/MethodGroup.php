@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class MethodGroup{
 	/**
-	 * @var AbstractApiMethod[]|MethodGroup[]
+	 * @var Method[]|MethodGroup[]
 	 */
 	private $items = [];
 
@@ -33,7 +33,7 @@ class MethodGroup{
 	}
 
 	/**
-	 * @return AbstractApiMethod[]|MethodGroup[]
+	 * @return Method[]|MethodGroup[]
 	 */
 	public function getItems(){
 		return $this->items;

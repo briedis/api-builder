@@ -22,9 +22,9 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase{
 	public function testValidStructure(){
 		$this->s
 			->int('int')
-			->string('string')
+			->str('string')
 			->float('float')
-			->boolean('bool');
+			->bool('bool');
 
 		$input = [
 			'int' => 123,

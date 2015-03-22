@@ -24,7 +24,7 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 				->int('id')
 			)->struct('s2', (new SB)
 				->float('decimal')
-			)->string('str');
+			)->str('str');
 
 		$input = [
 			's1' => [
@@ -105,14 +105,14 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 
 	public function testWrongParameterDepth(){
 		$this->s
-			->string('1_1')
+			->str('1_1')
 			->struct('1_3', (new SB)
-				->string('2_1')
+				->str('2_1')
 				->struct('2_2', (new SB)
-					->string('3_1')
+					->str('3_1')
 					->struct('3_2', (new SB)
 						->struct('4_1', (new SB)
-							->boolean('5_1')
+							->bool('5_1')
 							->int('5_2')
 						)
 					)

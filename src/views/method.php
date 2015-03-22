@@ -1,10 +1,10 @@
 <?php
 /**
- * @var AbstractApiMethod $apiMethod
- * @var \Briedis\ApiBuilder\ApiPresenter $presenter
+ * @var Method $apiMethod
+ * @var \Briedis\ApiBuilder\Presenter $presenter
  */
 
-use Briedis\ApiBuilder\AbstractApiMethod;
+use Briedis\ApiBuilder\Method;
 
 ?>
 <div class="api-builder" id="<?= htmlspecialchars($apiMethod->getDocElementName()); ?>">

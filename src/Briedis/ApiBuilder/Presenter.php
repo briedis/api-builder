@@ -4,9 +4,9 @@ namespace Briedis\ApiBuilder;
 
 use Illuminate\Support\Facades\View;
 
-class ApiPresenter{
+class Presenter{
 	/**
-	 * @var AbstractApiMethod[]|MethodGroup[]
+	 * @var Method[]|MethodGroup[]
 	 */
 	private $methodsOrGroups;
 
@@ -24,14 +24,14 @@ class ApiPresenter{
 
 	/**
 	 * Initialize presenter with api methods
-	 * @param AbstractApiMethod[]|MethodGroup[] $apiMethods
+	 * @param Method[]|MethodGroup[] $apiMethods
 	 */
 	public function __construct(array $apiMethods = []){
 		$this->methodsOrGroups = $apiMethods;
 	}
 
 	/**
-	 * @param AbstractApiMethod|MethodGroup $methodOrGroup
+	 * @param Method|MethodGroup $methodOrGroup
 	 * @return self
 	 */
 	public function add($methodOrGroup){
@@ -61,23 +61,23 @@ class ApiPresenter{
 
 	/**
 	 * Output method or a group of methods
-	 * @param AbstractApiMethod|MethodGroup $apiMethodOrGroup
+	 * @param Method|MethodGroup $methodOrGroup
 	 * @return mixed
 	 */
-	private function getMethodHtml($apiMethodOrGroup){
-		if(!($apiMethodOrGroup instanceof AbstractApiMethod) && !($apiMethodOrGroup instanceof MethodGroup)){
+	private function getMethodHtml($methodOrGroup){
+		if(!($methodOrGroup instanceof Method) && !($methodOrGroup instanceof MethodGroup)){
 			throw new \InvalidArgumentException('Bad apiMethod type given');
 		}
 
-		if($apiMethodOrGroup instanceof MethodGroup){
+		if($methodOrGroup instanceof MethodGroup){
 			return View::make('api-builder::group', [
-				'group' => $apiMethodOrGroup,
+				'group' => $methodOrGroup,
 				'presenter' => $this,
 			])->render();
 		}
 
 		return View::make('api-builder::method', [
-			'apiMethod' => $apiMethodOrGroup,
+			'apiMethod' => $methodOrGroup,
 			'presenter' => $this,
 		])->render();
 	}

@@ -1,14 +1,14 @@
 <?php
 include __DIR__ . '/../vendor/autoload.php';
 
-use Briedis\ApiBuilder\ApiPresenter;
+use Briedis\ApiBuilder\Presenter;
 
 include __DIR__ . '/ExampleGetUserRequest.php';
 include __DIR__ . '/Structures/response/LocationStructure.php';
 include __DIR__ . '/Structures/response/UserStructure.php';
 include __DIR__ . '/Structures/request/GetUsersStructure.php';
 
-$presenter = new ApiPresenter;
+$presenter = new Presenter;
 
 // Set a translation callback, if needed
 $presenter->setTranslateCallback(function ($key){

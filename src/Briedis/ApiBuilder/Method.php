@@ -6,7 +6,7 @@ namespace Briedis\ApiBuilder;
 
 use Illuminate\Support\Str;
 
-abstract class AbstractApiMethod{
+abstract class Method{
 	/**
 	 * Requests uri (without trailing and preceding slashes)
 	 */

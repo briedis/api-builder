@@ -1,10 +1,10 @@
 <?php
 
 
-use Briedis\ApiBuilder\AbstractApiMethod;
+use Briedis\ApiBuilder\Method;
 use Briedis\ApiBuilder\StructureBuilder;
 
-class ExampleGetUserRequest extends AbstractApiMethod{
+class ExampleGetUserRequest extends Method{
 	const URI = 'user/get';
 
 	const METHOD = 'GET';

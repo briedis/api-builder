@@ -1,20 +1,15 @@
 <?php
 /**
- * @var MethodGroup[]|AbstractApiMethod[] $items
+ * @var MethodGroup[]|Method[] $items
  */
 
-use Briedis\ApiBuilder\AbstractApiMethod;
+use Briedis\ApiBuilder\Method;
 use Briedis\ApiBuilder\MethodGroup;
 
 
-$outputMethod = function (AbstractApiMethod $method){
-	$html = '
-		<li>
-			<a href="' . htmlspecialchars($method->getDocUrl()) . '">' . $method->title . '</a>
-		</li>
-	';
-
-	return $html;
+$outputMethod = function (Method $method){
+	$url = htmlspecialchars($method->getDocUrl());
+	return "<li><a href='{$url}'>{$method->title}</a></li>";
 };
 
 $outputArray = function (array $items) use (&$outputGroup, &$outputMethod){
@@ -24,7 +19,7 @@ $outputArray = function (array $items) use (&$outputGroup, &$outputMethod){
 		if($v instanceof MethodGroup){
 			$html .= $outputGroup($v);
 		}
-		if($v instanceof AbstractApiMethod){
+		if($v instanceof Method){
 			$html .= $outputMethod($v);
 		}
 	}

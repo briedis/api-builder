@@ -2,7 +2,7 @@
 
 /**
  * @var \Briedis\ApiBuilder\MethodGroup $group
- * @var \Briedis\ApiBuilder\ApiPresenter $presenter
+ * @var \Briedis\ApiBuilder\Presenter $presenter
  */
 
 ?>
