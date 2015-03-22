@@ -10,7 +10,7 @@ class Structure extends BaseItem{
 	/** @var StructureBuilder */
 	public $structure;
 
-	public function validate($value){
+	public function validateValue($value){
 		throw new \RuntimeException('Cannot validate a structure');
 	}
 }

@@ -35,13 +35,13 @@ abstract class BaseItem{
 	 * Is enumerable type, has a list of valid values
 	 * @var bool
 	 */
-	public $isEnum = false;
+	public $isFixedValues = false;
 
 	/**
 	 * List of valid values. Is used only if isEnum is set
 	 * @var array
 	 */
-	public $enumValues = [];
+	public $validValues = [];
 
 	/**
 	 * @param string $name Parameters name
@@ -64,14 +64,56 @@ abstract class BaseItem{
 		}
 
 		if($this->isArray){
-			return $type . ' [ ]';
+			return $type . '[]';
 		}
 
-		if($this->isEnum){
-			return '{' . implode(', ', $this->enumValues) . '}';
+		if($this->isFixedValues){
+			return '{' . implode(', ', $this->validValues) . '}';
 		}
 
 		return $type;
+	}
+
+	public function validate($value){
+		if($this->isArray){
+			return $this->validateArray($value);
+		}
+
+		if($this->isFixedValues){
+			return $this->validateFixedValues($value);
+		}
+
+		return $this->validateValue($value);
+	}
+
+	/**
+	 * Check if all values are the needed type
+	 * @param array $values
+	 * @return bool
+	 */
+	protected function validateArray($values){
+		if(!is_array($values)){
+			return false;
+		}
+
+		foreach($values as $v){
+			if($this->isFixedValues && !$this->validateFixedValues($v)){
+				return false;
+			} elseif(!$this->validateValue($v)){
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if value is one of allowed values
+	 * @param mixed $value
+	 * @return bool
+	 */
+	protected function validateFixedValues($value){
+		return in_array($value, $this->validValues, true);
 	}
 
 	/**
@@ -79,5 +121,5 @@ abstract class BaseItem{
 	 * @param mixed $value
 	 * @return bool
 	 */
-	abstract public function validate($value);
+	abstract protected function validateValue($value);
 }

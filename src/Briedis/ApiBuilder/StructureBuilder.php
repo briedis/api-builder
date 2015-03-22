@@ -143,8 +143,8 @@ class StructureBuilder implements StructureInterface{
 		if($this->lastItem instanceof Structure || $this->lastItem instanceof Boolean){
 			throw new \InvalidArgumentException('Cannot mark this type as an enumerable');
 		}
-		$this->lastItem->isEnum = true;
-		$this->lastItem->enumValues = $values;
+		$this->lastItem->isFixedValues = true;
+		$this->lastItem->validValues = $values;
 		return $this;
 	}
 

@@ -93,6 +93,91 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 		], new String);
 	}
 
+	public function testIsNotIntegerArray(){
+		$item = new Integer;
+		$item->isArray = true;
+		$this->itemAssertFalse([
+			1,
+			'a',
+			['a'],
+			[123.45],
+			-123,
+			['a', 1],
+		], $item);
+	}
+
+	public function testIsIntegerArray(){
+		$item = new Integer;
+		$item->isArray = true;
+		$this->itemAssertTrue([
+			[],
+			[1],
+			[1, 2, 3, 4],
+		], $item);
+	}
+
+	public function testIsFixedValue(){
+		$item = new Integer;
+		$item->isFixedValues = true;
+		$item->validValues = [1, 2, 3];
+		$this->itemAssertTrue([
+			1,
+			2,
+			3,
+		], $item);
+
+	}
+
+	public function testIsNotFixedValue(){
+		$item = new Integer;
+		$item->isFixedValues = true;
+		$item->validValues = [1, 2, 3];
+		$this->itemAssertFalse([
+			0,
+			4,
+			5,
+			6,
+		], $item);
+	}
+
+	public function testIsFixedValueArray(){
+		$item = new Integer;
+		$item->isFixedValues = true;
+		$item->validValues = [1, 2, 3];
+		$item->isArray = true;
+		$this->itemAssertTrue([
+			[],
+			[1],
+			[1, 2],
+			[1, 2, 3],
+		], $item);
+	}
+
+	public function testIsNotFixedValueArray(){
+		$item = new Integer;
+		$item->isFixedValues = true;
+		$item->validValues = [1, 2, 3];
+		$item->isArray = true;
+		$this->itemAssertFalse([
+			'a',
+			['a'],
+			['a', 1, 2],
+			[1, 2, null],
+			3
+		], $item);
+	}
+
+	public function testIsMixedFixedValues(){
+		$item = new String;
+		$item->isFixedValues = true;
+		$item->validValues = [1, 'a', 1.5];
+		$this->itemAssertTrue([
+			1,
+			'a',
+			1.5,
+		], $item);
+	}
+
 	private function itemAssertTrue(array $values, BaseItem $item){
 		foreach($values as $v){
 			$this->assertTrue($item->validate($v), var_export($v, true) . ' should be of type ' . $item->getDisplayTypeName());

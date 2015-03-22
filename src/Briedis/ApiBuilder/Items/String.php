@@ -7,7 +7,7 @@ namespace Briedis\ApiBuilder\Items;
 class String extends BaseItem{
 	const TYPE = 'string';
 
-	public function validate($value){
+	public function validateValue($value){
 		return is_scalar($value) && !is_bool($value);
 	}
 }

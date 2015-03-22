@@ -7,7 +7,7 @@ namespace Briedis\ApiBuilder\Items;
 class Integer extends BaseItem{
 	const TYPE = 'integer';
 
-	public function validate($value){
+	public function validateValue($value){
 		return (string)(int)$value === (string)$value;
 	}
 }

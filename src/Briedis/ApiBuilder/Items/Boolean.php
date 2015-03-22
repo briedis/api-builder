@@ -7,7 +7,7 @@ namespace Briedis\ApiBuilder\Items;
 class Boolean extends BaseItem{
 	const TYPE = 'boolean';
 
-	public function validate($value){
+	public function validateValue($value){
 		return
 			is_bool($value)
 			|| $value === 'true'
