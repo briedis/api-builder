@@ -4,6 +4,7 @@ use Briedis\ApiBuilder\Items\BaseItem;
 use Briedis\ApiBuilder\Items\Boolean;
 use Briedis\ApiBuilder\Items\Float;
 use Briedis\ApiBuilder\Items\Integer;
+use Briedis\ApiBuilder\Items\Mixed;
 use Briedis\ApiBuilder\Items\String;
 
 class TypeTest extends PHPUnit_Framework_TestCase{
@@ -167,7 +168,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 		], $item);
 	}
 
-	public function testIsMixedFixedValues(){
+	public function testIsStringFixedValues(){
 		$item = new String;
 		$item->isFixedValues = true;
 		$item->validValues = [1, 'a', 1.5];
@@ -175,6 +176,18 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			1,
 			'a',
 			1.5,
+		], $item);
+	}
+
+	public function testIsMixed(){
+		$item = new Mixed;
+		$this->itemAssertTrue([
+			1,
+			'a',
+			[123],
+			1.434,
+			true,
+			null,
 		], $item);
 	}
 

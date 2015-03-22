@@ -1,12 +1,15 @@
 <?php
 
 /**
- * @var \Briedis\ApiBuilder\StructureBuilder $structureBuilder
+ * @var \Briedis\ApiBuilder\StructureInterface $structure
  */
 
 use Briedis\ApiBuilder\Items\Structure;
+use Briedis\ApiBuilder\Presenter;
 
-foreach($structureBuilder->getItems() as $v){
+$items = $structure->getStructure()->getItems();
+
+foreach($items as $v){
 	?>
 	<div class='item'>
 		<div class='cols'>
@@ -25,7 +28,7 @@ foreach($structureBuilder->getItems() as $v){
 	if($v instanceof Structure){
 		?>
 		<div class="sub">
-			<?= View::make('api-builder::structure', ['structureBuilder' => $v->structure])->render(); ?>
+			<?= Presenter::view('structure', ['structure' => $v->structure]); ?>
 		</div>
 	<?php
 	}

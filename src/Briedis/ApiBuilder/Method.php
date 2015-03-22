@@ -30,13 +30,13 @@ abstract class Method{
 
 	/**
 	 * Get structure(s) that will be passed to the request
-	 * @return StructureBuilder
+	 * @return StructureInterface
 	 */
 	abstract public function getRequest();
 
 	/**
 	 * Get structure(s) that will be returned by the request
-	 * @return StructureBuilder
+	 * @return StructureInterface
 	 */
 	abstract public function getResponse();
 

@@ -8,6 +8,7 @@ use Briedis\ApiBuilder\Items\BaseItem;
 use Briedis\ApiBuilder\Items\Boolean;
 use Briedis\ApiBuilder\Items\Float;
 use Briedis\ApiBuilder\Items\Integer;
+use Briedis\ApiBuilder\Items\Mixed;
 use Briedis\ApiBuilder\Items\String;
 use Briedis\ApiBuilder\Items\Structure;
 use Briedis\ApiBuilder\Items\Upload;
@@ -110,6 +111,16 @@ class StructureBuilder implements StructureInterface{
 	 */
 	public function upload($name, $description = ''){
 		return $this->addItem(new Upload($name, $description));
+	}
+
+	/**
+	 * Mixed type. Can be anything
+	 * @param string $name
+	 * @param string $description
+	 * @return StructureBuilder
+	 */
+	public function mixed($name, $description = ''){
+		return $this->addItem(new Mixed($name, $description));
 	}
 
 	/**

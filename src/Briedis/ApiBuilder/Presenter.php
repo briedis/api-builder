@@ -2,9 +2,11 @@
 namespace Briedis\ApiBuilder;
 
 
-use Illuminate\Support\Facades\View;
-
 class Presenter{
+	const VIEW_NAMESPACE = 'api-builder';
+	const LARAVEL_RESOURCE_PREFIX = 'packages/briedis/api-builder/';
+	const DEFAULT_RESOURCE_PREFIX = '/public/';
+
 	/**
 	 * @var Method[]|MethodGroup[]
 	 */
@@ -46,17 +48,15 @@ class Presenter{
 			$methodHtml .= $this->getMethodHtml($v);
 		}
 
-		$pageView = View::make('api-builder::page', [
+		return self::view('page', [
 			'methodHtml' => $methodHtml,
 		]);
-
-		return $pageView->render();
 	}
 
 	public function renderTOC(){
-		return View::make('api-builder::toc', [
+		return self::view('toc', [
 			'items' => $this->methodsOrGroups,
-		])->render();
+		]);
 	}
 
 	/**
@@ -70,16 +70,16 @@ class Presenter{
 		}
 
 		if($methodOrGroup instanceof MethodGroup){
-			return View::make('api-builder::group', [
+			return self::view('group', [
 				'group' => $methodOrGroup,
 				'presenter' => $this,
-			])->render();
+			]);
 		}
 
-		return View::make('api-builder::method', [
+		return self::view('method', [
 			'apiMethod' => $methodOrGroup,
 			'presenter' => $this,
-		])->render();
+		]);
 	}
 
 	/**
@@ -114,5 +114,40 @@ class Presenter{
 	 */
 	public function getDomain(){
 		return $this->domain;
+	}
+
+	/**
+	 * Render a view (Using output buffer or laravel, if available)
+	 * @param $view
+	 * @param array $data
+	 * @return string
+	 */
+	public static function view($view, array $data = array()){
+		// Check if Laravel View class exists
+		if(class_exists('View')){
+			$view = self::VIEW_NAMESPACE . '::' . $view;
+			/** @noinspection PhpUndefinedClassInspection */
+			return \View::make($view, $data)->render();
+		}
+
+		// Fake a custom view
+		extract($data);
+		ob_start();
+		/** @noinspection PhpIncludeInspection */
+		include __DIR__ . '/../../views/' . $view . '.php';
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get resource URL
+	 * @param string $path
+	 * @return string full URL
+	 */
+	public static function resourceUrl($path){
+		if(class_exists('URL')){
+			/** @noinspection PhpUndefinedClassInspection */
+			return URL::to(self::LARAVEL_RESOURCE_PREFIX . $path);
+		}
+		return self::DEFAULT_RESOURCE_PREFIX . $path;
 	}
 }

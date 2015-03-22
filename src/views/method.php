@@ -1,10 +1,11 @@
 <?php
 /**
  * @var Method $apiMethod
- * @var \Briedis\ApiBuilder\Presenter $presenter
+ * @var Presenter $presenter
  */
 
 use Briedis\ApiBuilder\Method;
+use Briedis\ApiBuilder\Presenter;
 
 ?>
 <div class="api-builder" id="<?= htmlspecialchars($apiMethod->getDocElementName()); ?>">
@@ -33,13 +34,13 @@ use Briedis\ApiBuilder\Method;
 
 		<div class="tab parameters hidden">
 			<div class="param-block">
-				<?= View::make('api-builder::structure', ['structureBuilder' => $apiMethod->getRequest()])->render(); ?>
+				<?= Presenter::view('structure', ['structure' => $apiMethod->getRequest()]); ?>
 			</div>
 		</div>
 
 		<div class="tab response hidden">
 			<div class="param-block">
-				<?= View::make('api-builder::structure', ['structureBuilder' => $apiMethod->getResponse()])->render(); ?>
+				<?= Presenter::view('structure', ['structure' => $apiMethod->getResponse()]); ?>
 			</div>
 		</div>
 	</div>

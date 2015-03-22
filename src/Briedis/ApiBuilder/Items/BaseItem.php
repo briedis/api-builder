@@ -5,7 +5,7 @@ namespace Briedis\ApiBuilder\Items;
 
 
 abstract class BaseItem{
-	const TYPE = 'mixed';
+	const TYPE = '';
 
 	/**
 	 * Name of the parameter
