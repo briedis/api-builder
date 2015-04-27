@@ -18,10 +18,10 @@ class StructureValidator{
 	private $parameterDepthStack = [];
 
 	/**
-	 * @param StructureBuilder $structure Structure to be validated against
+	 * @param StructureInterface $structure Structure to be validated against
 	 * @param array $parameterDepthStack
 	 */
-	public function __construct(StructureBuilder $structure, array &$parameterDepthStack = []){
+	public function __construct(StructureInterface $structure, array &$parameterDepthStack = []){
 		$this->structure = $structure;
 		$this->parameterDepthStack = $parameterDepthStack;
 	}

@@ -4,9 +4,12 @@
 namespace Briedis\ApiBuilder;
 
 
+use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
+use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Support\Str;
+use Input;
 
-abstract class Method{
+abstract class Method implements ValidatesWhenResolved{
 	/**
 	 * Requests uri (without trailing and preceding slashes)
 	 */
@@ -63,5 +66,15 @@ abstract class Method{
 	 */
 	public function getDocElementName(){
 		return Str::slug(static::METHOD . '-' . static::URI);
+	}
+
+	/**
+	 * Validate the given class instance.
+	 * @return void
+     * @throws InvalidStructureException
+	 */
+	public function validate(){
+		$validator = new StructureValidator($this->getRequest());
+		$validator->validate(Input::all());
 	}
 }
