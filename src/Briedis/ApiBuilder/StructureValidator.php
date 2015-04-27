@@ -55,7 +55,7 @@ class StructureValidator{
 
 		// Check for missing fields
 		foreach($this->structure->getItems() as $k => $v){
-			if(!array_key_exists($k, $input)){
+			if(!$v->isOptional && !array_key_exists($k, $input)){
 				$exception->addMissingField($k, $v);
 			}
 		}

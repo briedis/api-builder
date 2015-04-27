@@ -100,4 +100,18 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase{
 
 		$this->assertTrue($caught, 'Exception is caught');
 	}
+
+	public function testOptionalParameterMissing(){
+		$this->s->int('missing')->optional();
+		$input = [];
+		$this->assertTrue($this->v->validate($input), 'Optional parameter can be omitted');
+	}
+
+	public function testEmptyArrayIsValid(){
+		$this->s->int('numbers')->multiple();
+		$input = [
+			'numbers' => [],
+		];
+		$this->assertTrue($this->v->validate($input), 'Empty array is a valid type');
+	}
 }
