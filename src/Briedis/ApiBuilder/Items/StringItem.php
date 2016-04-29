@@ -4,7 +4,7 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class String extends BaseItem{
+class StringItem extends BaseItem{
 	const TYPE = 'string';
 
 	public function validateValue($value){

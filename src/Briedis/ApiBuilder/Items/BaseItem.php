@@ -59,7 +59,7 @@ abstract class BaseItem{
 	public function getDisplayTypeName(){
 		$type = static::TYPE;
 
-		if($this instanceof Structure){
+		if($this instanceof StructureItem){
 			$type = $this->structure->getStructureName();
 		}
 

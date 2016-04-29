@@ -4,7 +4,7 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class Mixed extends BaseItem{
+class MixedItem extends BaseItem{
 	const TYPE = 'mixed';
 
 	protected function validateValue($value){

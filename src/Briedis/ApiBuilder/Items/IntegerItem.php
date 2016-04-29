@@ -4,7 +4,7 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class Integer extends BaseItem{
+class IntegerItem extends BaseItem{
 	const TYPE = 'integer';
 
 	public function validateValue($value){

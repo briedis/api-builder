@@ -6,7 +6,7 @@ namespace Briedis\ApiBuilder\Items;
 
 use Briedis\ApiBuilder\StructureBuilder;
 
-class Structure extends BaseItem{
+class StructureItem extends BaseItem{
 	/** @var StructureBuilder */
 	public $structure;
 

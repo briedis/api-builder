@@ -2,8 +2,8 @@
 
 
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
-use Briedis\ApiBuilder\Items\Decimal;
-use Briedis\ApiBuilder\Items\Integer;
+use Briedis\ApiBuilder\Items\DecimalItem;
+use Briedis\ApiBuilder\Items\IntegerItem;
 use Briedis\ApiBuilder\StructureBuilder;
 use Briedis\ApiBuilder\StructureValidator;
 
@@ -45,7 +45,7 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase{
 		} catch(InvalidStructureException $e){
 			$caught = true;
 			$missing = $e->getMissingFields();
-			$this->assertInstanceOf(get_class(new Integer), $missing['int'], 'Correct field is missing');
+			$this->assertInstanceOf(get_class(new IntegerItem), $missing['int'], 'Correct field is missing');
 			$this->assertEquals(1, count($missing), 'Missing parameter count matches');
 		}
 
@@ -72,8 +72,8 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase{
 			$caught = true;
 			$fields = $e->getBadFields();
 
-			$this->assertInstanceOf(get_class(new Integer), $fields['id'], 'Correct field is invalid');
-			$this->assertInstanceOf(get_class(new Decimal), $fields['decimal'], 'Correct field is invalid');
+			$this->assertInstanceOf(get_class(new IntegerItem), $fields['id'], 'Correct field is invalid');
+			$this->assertInstanceOf(get_class(new DecimalItem), $fields['decimal'], 'Correct field is invalid');
 			$this->assertEquals(2, count($fields), 'Bad parameter count matches');
 		}
 

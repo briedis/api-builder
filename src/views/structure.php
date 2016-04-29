@@ -4,7 +4,7 @@
  * @var \Briedis\ApiBuilder\StructureInterface $structure
  */
 
-use Briedis\ApiBuilder\Items\Structure;
+use Briedis\ApiBuilder\Items\StructureItem;
 use Briedis\ApiBuilder\Presenter;
 
 $items = $structure->getStructure()->getItems();
@@ -25,7 +25,7 @@ foreach($items as $v){
 	</div>
 	<?php
 
-	if($v instanceof Structure){
+	if($v instanceof StructureItem){
 		?>
 		<div class="sub">
 			<?= Presenter::view('structure', ['structure' => $v->structure]); ?>

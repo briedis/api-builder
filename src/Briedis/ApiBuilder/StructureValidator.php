@@ -7,7 +7,7 @@ namespace Briedis\ApiBuilder;
 use Briedis\ApiBuilder\Exceptions\InvalidParameterTypeException;
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Briedis\ApiBuilder\Exceptions\UnexpectedParameterException;
-use Briedis\ApiBuilder\Items\Structure;
+use Briedis\ApiBuilder\Items\StructureItem;
 
 class StructureValidator{
 
@@ -82,7 +82,7 @@ class StructureValidator{
 			throw new UnexpectedParameterException;
 		}
 
-		if($item instanceof Structure){
+		if($item instanceof StructureItem){
 			// Recursive validation
 			$validator = new self($item->structure, $this->parameterDepthStack);
 			$validator->validate($value);

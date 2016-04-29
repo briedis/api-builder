@@ -4,7 +4,7 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class Upload extends BaseItem{
+class UploadItem extends BaseItem{
 	const TYPE = 'upload';
 
 	public function validateValue($value){

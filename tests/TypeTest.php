@@ -1,11 +1,11 @@
 <?php
 
 use Briedis\ApiBuilder\Items\BaseItem;
-use Briedis\ApiBuilder\Items\Boolean;
-use Briedis\ApiBuilder\Items\Decimal;
-use Briedis\ApiBuilder\Items\Integer;
-use Briedis\ApiBuilder\Items\Mixed;
-use Briedis\ApiBuilder\Items\String;
+use Briedis\ApiBuilder\Items\BooleanItem;
+use Briedis\ApiBuilder\Items\DecimalItem;
+use Briedis\ApiBuilder\Items\IntegerItem;
+use Briedis\ApiBuilder\Items\MixedItem;
+use Briedis\ApiBuilder\Items\StringItem;
 
 class TypeTest extends PHPUnit_Framework_TestCase{
 	public function testInteger(){
@@ -15,7 +15,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			0,
 			'1',
 			'1000',
-		], new Integer);
+		], new IntegerItem);
 
 	}
 
@@ -27,7 +27,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'',
 			'1 1',
 			'3.22',
-		], new Integer);
+		], new IntegerItem);
 	}
 
 	public function testIsBoolean(){
@@ -38,7 +38,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'false',
 			'1',
 			'0',
-		], new Boolean);
+		], new BooleanItem);
 	}
 
 	public function testIsNotBoolean(){
@@ -48,7 +48,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'-1',
 			'1a',
 			null,
-		], new Boolean);
+		], new BooleanItem);
 	}
 
 	public function testIsFloat(){
@@ -58,7 +58,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'-1223',
 			1.234,
 			1e2,
-		], new Decimal);
+		], new DecimalItem);
 	}
 
 	public function testIsNotFloat(){
@@ -72,7 +72,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'0xf4c3b00c',
 			'0b10100111001',
 			'0777',
-		], new Decimal);
+		], new DecimalItem);
 	}
 
 	public function testIsString(){
@@ -81,7 +81,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'b',
 			'some string',
 			1234
-		], new String);
+		], new StringItem);
 	}
 
 	public function testIsNotString(){
@@ -91,11 +91,11 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			true,
 			[],
 			new stdClass,
-		], new String);
+		], new StringItem);
 	}
 
 	public function testIsNotIntegerArray(){
-		$item = new Integer;
+		$item = new IntegerItem;
 		$item->isArray = true;
 		$this->itemAssertFalse([
 			1,
@@ -108,7 +108,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testIsIntegerArray(){
-		$item = new Integer;
+		$item = new IntegerItem;
 		$item->isArray = true;
 		$this->itemAssertTrue([
 			[],
@@ -118,7 +118,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testIsFixedValue(){
-		$item = new Integer;
+		$item = new IntegerItem;
 		$item->isFixedValues = true;
 		$item->validValues = [1, 2, 3];
 		$this->itemAssertTrue([
@@ -130,7 +130,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testIsNotFixedValue(){
-		$item = new Integer;
+		$item = new IntegerItem;
 		$item->isFixedValues = true;
 		$item->validValues = [1, 2, 3];
 		$this->itemAssertFalse([
@@ -142,7 +142,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testIsFixedValueArray(){
-		$item = new Integer;
+		$item = new IntegerItem;
 		$item->isFixedValues = true;
 		$item->validValues = [1, 2, 3];
 		$item->isArray = true;
@@ -155,7 +155,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testIsNotFixedValueArray(){
-		$item = new Integer;
+		$item = new IntegerItem;
 		$item->isFixedValues = true;
 		$item->validValues = [1, 2, 3];
 		$item->isArray = true;
@@ -169,7 +169,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testIsStringFixedValues(){
-		$item = new String;
+		$item = new StringItem;
 		$item->isFixedValues = true;
 		$item->validValues = [1, 'a', 1.5];
 		$this->itemAssertTrue([
@@ -180,7 +180,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 	}
 
 	public function testIsMixed(){
-		$item = new Mixed;
+		$item = new MixedItem;
 		$this->itemAssertTrue([
 			1,
 			'a',
