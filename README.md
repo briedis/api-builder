@@ -3,6 +3,8 @@
 [![Build passes?](https://travis-ci.org/briedis/api-builder.svg)](https://travis-ci.org/briedis/api-builder)
 [![Latest Stable Version](https://poser.pugx.org/briedis/api-builder/v/stable.svg)](https://packagist.org/packages/briedis/api-builder)
 [![Latest Unstable Version](https://poser.pugx.org/briedis/api-builder/v/unstable.svg)](https://packagist.org/packages/briedis/api-builder)
+[![Master](https://scrutinizer-ci.com/g/briedis/api-builder/badges/quality-score.png?b=master)](https://packagist.org/packages/briedis/api-builder)
+
 
 
 Library helps you build a documentation for your api, and you can even use it to validate request parameters
