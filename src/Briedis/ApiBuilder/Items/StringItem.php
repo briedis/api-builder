@@ -4,10 +4,12 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class StringItem extends BaseItem{
-	const TYPE = 'string';
+class StringItem extends BaseItem
+{
+    const TYPE = 'string';
 
-	public function validateValue($value){
-		return is_scalar($value) && !is_bool($value);
-	}
+    public function validateValue($value)
+    {
+        return is_scalar($value) && !is_bool($value);
+    }
 }

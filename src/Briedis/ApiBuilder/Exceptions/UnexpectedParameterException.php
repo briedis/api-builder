@@ -4,5 +4,6 @@
 namespace Briedis\ApiBuilder\Exceptions;
 
 
-class UnexpectedParameterException extends \Exception{
+class UnexpectedParameterException extends \Exception
+{
 }

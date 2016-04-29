@@ -11,8 +11,8 @@ include __DIR__ . '/Structures/request/GetUsersStructure.php';
 $presenter = new Presenter;
 
 // Set a translation callback, if needed
-$presenter->setTranslateCallback(function ($key){
-	return $key; // Call your trans() function
+$presenter->setTranslateCallback(function ($key) {
+    return $key; // Call your trans() function
 });
 
 $presenter->add(new ExampleGetUserRequest);
@@ -21,12 +21,12 @@ $presenter->add(new ExampleGetUserRequest);
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 </head>
 <body>
 <div class="container">
-	<?= $presenter->render(); ?>
+    <?= $presenter->render(); ?>
 </div>
 </body>
 </html>

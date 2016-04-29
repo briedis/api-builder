@@ -4,15 +4,17 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class BooleanItem extends BaseItem{
-	const TYPE = 'boolean';
+class BooleanItem extends BaseItem
+{
+    const TYPE = 'boolean';
 
-	public function validateValue($value){
-		return
-			is_bool($value)
-			|| $value === 'true'
-			|| $value === 'false'
-			|| (string)$value === '0'
-			|| (string)$value === '1';
-	}
+    public function validateValue($value)
+    {
+        return
+            is_bool($value)
+            || $value === 'true'
+            || $value === 'false'
+            || (string)$value === '0'
+            || (string)$value === '1';
+    }
 }

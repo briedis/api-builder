@@ -2,33 +2,37 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class ApiBuilderLaravel4ServiceProvider extends ServiceProvider{
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
+class ApiBuilderLaravel4ServiceProvider extends ServiceProvider
+{
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register(){
-		//
-	}
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides(){
-		return array();
-	}
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [];
+    }
 
-	public function boot(){
-		$this->package('briedis/api-builder');
-	}
+    public function boot()
+    {
+        $this->package('briedis/api-builder');
+    }
 }
