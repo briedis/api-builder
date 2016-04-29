@@ -6,7 +6,7 @@ namespace Briedis\ApiBuilder;
 
 use Briedis\ApiBuilder\Items\BaseItem;
 use Briedis\ApiBuilder\Items\Boolean;
-use Briedis\ApiBuilder\Items\Float;
+use Briedis\ApiBuilder\Items\Decimal;
 use Briedis\ApiBuilder\Items\Integer;
 use Briedis\ApiBuilder\Items\Mixed;
 use Briedis\ApiBuilder\Items\String;
@@ -90,7 +90,7 @@ class StructureBuilder implements StructureInterface{
 	 * @return StructureBuilder
 	 */
 	public function float($name, $description = ''){
-		return $this->addItem(new Float($name, $description));
+		return $this->addItem(new Decimal($name, $description));
 	}
 
 	/**

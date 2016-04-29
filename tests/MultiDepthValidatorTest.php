@@ -2,7 +2,7 @@
 
 
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
-use Briedis\ApiBuilder\Items\Float;
+use Briedis\ApiBuilder\Items\Decimal;
 use Briedis\ApiBuilder\StructureBuilder as SB;
 use Briedis\ApiBuilder\StructureValidator;
 
@@ -64,7 +64,7 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase{
 		} catch(InvalidStructureException $e){
 			$caught = true;
 			$fields = $e->getBadFields();
-			$this->assertInstanceOf(get_class(new Float), $fields['s11.decimal'], 'Correct field is missing');
+			$this->assertInstanceOf(get_class(new Decimal), $fields['s11.decimal'], 'Correct field is missing');
 			$this->assertEquals(1, count($fields), 'Bad parameter count matches');
 		}
 

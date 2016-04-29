@@ -4,7 +4,7 @@
 namespace Briedis\ApiBuilder\Items;
 
 
-class Float extends BaseItem{
+class Decimal extends BaseItem{
 	const TYPE = 'float';
 
 	public function validateValue($value){

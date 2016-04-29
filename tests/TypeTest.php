@@ -2,7 +2,7 @@
 
 use Briedis\ApiBuilder\Items\BaseItem;
 use Briedis\ApiBuilder\Items\Boolean;
-use Briedis\ApiBuilder\Items\Float;
+use Briedis\ApiBuilder\Items\Decimal;
 use Briedis\ApiBuilder\Items\Integer;
 use Briedis\ApiBuilder\Items\Mixed;
 use Briedis\ApiBuilder\Items\String;
@@ -58,7 +58,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'-1223',
 			1.234,
 			1e2,
-		], new Float);
+		], new Decimal);
 	}
 
 	public function testIsNotFloat(){
@@ -72,7 +72,7 @@ class TypeTest extends PHPUnit_Framework_TestCase{
 			'0xf4c3b00c',
 			'0b10100111001',
 			'0777',
-		], new Float);
+		], new Decimal);
 	}
 
 	public function testIsString(){
