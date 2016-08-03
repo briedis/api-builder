@@ -11,12 +11,12 @@ Library helps you build a documentation for your api, and you can even use it to
 
 ## Usage
 ### Laravel 4
-1. Add composer dependency `"briedis/api-builder": "~1.0.0"` and run `composer update`
+1. Add composer dependency `"briedis/api-builder": "~1.0"` and run `composer update`
 2. Add service provider `Briedis\ApiBuilder\ApiBuilderLaravel4ServiceProvider`
 3. Publish assets public directory: `php artisan asset:publish briedis/api-builder`
 
 ### Laravel 5
-1. Add composer dependency `"briedis/api-builder": "~1.0.0"` and run `composer update`
+1. Add composer dependency `"briedis/api-builder": "~1.0"` and run `composer update`
 2. Add service provider `Briedis\ApiBuilder\ApiBuilderLaravel5ServiceProvider`
 3. Publish assets to public directory: `php artisan vendor:publish --force --provider="Briedis\ApiBuilder\ApiBuilderLaravel5ServiceProvider"` (force means that existing files will be overwritten) 
 
