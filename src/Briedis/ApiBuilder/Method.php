@@ -7,7 +7,6 @@ namespace Briedis\ApiBuilder;
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Support\Str;
-use Input;
 
 abstract class Method implements ValidatesWhenResolved
 {
@@ -80,6 +79,6 @@ abstract class Method implements ValidatesWhenResolved
     public function validate()
     {
         $validator = new StructureValidator($this->getRequest());
-        $validator->validate(Input::all());
+        $validator->validate(\Request::input());
     }
 }
