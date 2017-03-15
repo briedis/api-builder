@@ -1,11 +1,13 @@
 <?php
 
+namespace Briedis\ApiBuilder\Tests;
 
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Briedis\ApiBuilder\Items\DecimalItem;
 use Briedis\ApiBuilder\Items\IntegerItem;
 use Briedis\ApiBuilder\StructureBuilder;
 use Briedis\ApiBuilder\StructureValidator;
+use PHPUnit_Framework_TestCase;
 
 class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase
 {

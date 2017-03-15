@@ -1,11 +1,15 @@
 <?php
 
+namespace Briedis\ApiBuilder\Tests;
+
 use Briedis\ApiBuilder\Items\BaseItem;
 use Briedis\ApiBuilder\Items\BooleanItem;
 use Briedis\ApiBuilder\Items\DecimalItem;
 use Briedis\ApiBuilder\Items\IntegerItem;
 use Briedis\ApiBuilder\Items\MixedItem;
 use Briedis\ApiBuilder\Items\StringItem;
+use PHPUnit_Framework_TestCase;
+use stdClass;
 
 class TypeTest extends PHPUnit_Framework_TestCase
 {

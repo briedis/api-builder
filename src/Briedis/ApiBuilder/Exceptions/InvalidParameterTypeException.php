@@ -1,4 +1,5 @@
 <?php
+
 namespace Briedis\ApiBuilder\Exceptions;
 
 use Briedis\ApiBuilder\Items\BaseItem;
