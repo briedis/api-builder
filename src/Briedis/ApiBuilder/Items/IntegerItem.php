@@ -10,6 +10,6 @@ class IntegerItem extends BaseItem
 
     public function validateValue($value)
     {
-        return (string)(int)$value === (string)$value;
+        return is_scalar($value) && (string)(int)$value === (string)$value;
     }
 }
