@@ -7,6 +7,8 @@
 use Briedis\ApiBuilder\Method;
 use Briedis\ApiBuilder\Presenter;
 
+$request = $apiMethod->getRequest();
+
 ?>
 <div class="api-builder" id="<?= htmlspecialchars($apiMethod->getDocElementName()); ?>">
 
@@ -22,9 +24,11 @@ use Briedis\ApiBuilder\Presenter;
             <li class="active">
                 <a href="javascript:" data-target="description">Description</a>
             </li>
-            <li>
-                <a href="javascript:" data-target="parameters">Parameters</a>
-            </li>
+            <?php if ($request && $request->getStructure()->getItems()) { ?>
+                <li>
+                    <a href="javascript:" data-target="parameters">Parameters</a>
+                </li>
+            <?php } ?>
             <li>
                 <a href="javascript:" data-target="response">Response</a>
             </li>
@@ -34,7 +38,7 @@ use Briedis\ApiBuilder\Presenter;
 
         <div class="tab parameters hidden">
             <div class="param-block">
-                <?= Presenter::view('structure', ['structure' => $apiMethod->getRequest()]); ?>
+                <?= Presenter::view('structure', ['structure' => $request]); ?>
             </div>
         </div>
 
