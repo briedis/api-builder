@@ -85,4 +85,37 @@ class InvalidStructureException extends Exception
     {
         $this->missingFields[$name] = $expectedItem;
     }
+
+    /**
+     * Get formatted exception message with all problematic fields
+     *
+     * @return string
+     */
+    public function getFormattedMessage()
+    {
+        $message = '';
+
+        $missing = $this->getMissingFields();
+        if ($missing) {
+            $missingNames = array_map(function (BaseItem $v) {
+                return $v->name;
+            }, $missing);
+            $message .= 'Missing fields: ' . implode(', ', $missingNames) . '; ';
+        }
+
+        $invalid = $this->getBadFields();
+        if ($invalid) {
+            $invalidNames = array_map(function (BaseItem $v) {
+                return $v->name;
+            }, $invalid);
+            $message .= 'Invalid fields: ' . implode(', ', $invalidNames) . '; ';
+        }
+
+        $unexpected = $this->getUnexpectedFields();
+        if ($unexpected) {
+            $message .= 'Unexpected fields: ' . implode(', ', $unexpected) . '; ';
+        }
+
+        return rtrim($message);
+    }
 }

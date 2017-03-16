@@ -11,7 +11,6 @@ use Briedis\ApiBuilder\Items\StructureItem;
 
 class StructureValidator
 {
-
     /** @var StructureBuilder */
     private $structure;
 
@@ -20,7 +19,7 @@ class StructureValidator
 
     /**
      * @param StructureInterface $structure Structure to be validated against
-     * @param array $parameterDepthStack
+     * @param array $parameterDepthStack Array used when recursively validating to keep track of depth. Should not be passed initially!
      */
     public function __construct(StructureInterface $structure, array &$parameterDepthStack = [])
     {
