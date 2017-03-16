@@ -23,11 +23,11 @@ class RouteBuilder
 
     /**
      * Generate a route for a given method
-     * @param Method $method
+     * @param Method|string $method Instance of method or fully qualified name (::class)
      * @param array|Closure|null|string $routeAction
      * @return self
      */
-    public function add(Method $method, $routeAction)
+    public function add($method, $routeAction)
     {
         $mapping = [
             'GET' => 'get',
