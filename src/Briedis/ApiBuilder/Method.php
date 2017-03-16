@@ -32,8 +32,8 @@ abstract class Method implements ValidatesWhenResolved
     public $description = '';
 
     /**
-     * Get structure(s) that will be passed to the request
-     * @return StructureInterface
+     * Get structure(s) that will be passed to the request. Optional.
+     * @return StructureInterface|null
      */
     abstract public function getRequest();
 
@@ -78,7 +78,12 @@ abstract class Method implements ValidatesWhenResolved
      */
     public function validate()
     {
-        $validator = new StructureValidator($this->getRequest());
+        $requestStructure = $this->getRequest();
+        if (!$requestStructure) {
+            return;
+        }
+
+        $validator = new StructureValidator($requestStructure);
         $validator->validate(\Request::input());
     }
 }
