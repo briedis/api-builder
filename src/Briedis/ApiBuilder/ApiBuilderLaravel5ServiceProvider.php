@@ -18,8 +18,5 @@ class ApiBuilderLaravel5ServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__ . '/../../views/', 'api-builder');
-        $this->publishes([
-            __DIR__ . '/../../../public' => public_path('/packages/briedis/api-builder/'),
-        ]);
     }
 }

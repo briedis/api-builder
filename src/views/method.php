@@ -9,28 +9,32 @@ use Briedis\ApiBuilder\Presenter;
 
 $request = $apiMethod->getRequest();
 
+$methodId = htmlspecialchars(Presenter::getMethodDocElementName($apiMethod));
+
+$methodUri = '/' . ltrim($apiMethod::URI, '/');
+
 ?>
-<div class="api-builder" id="<?= htmlspecialchars($apiMethod->getDocElementName()); ?>">
+<div class="api-builder" id="<?= $methodId; ?>">
 
     <div class="api-method">
         <h1><?= $apiMethod->title; ?></h1>
 
         <div class="call-url">
             <span class="method method-<?= strtolower($apiMethod::METHOD); ?>"><?= $apiMethod::METHOD; ?></span>
-            <span class="domain"><?= $presenter->getDomain(); ?>/</span><span class="uri"><?= $apiMethod::URI; ?></span>
+            <span class="domain"><?= $presenter->getDomain(); ?></span><span class="uri"><?= $methodUri; ?></span>
         </div>
 
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="javascript:" data-target="description">Description</a>
+                <a href="javascript:" data-target="description" onclick="apiBuilderTabClick(this);">Description</a>
             </li>
             <?php if ($request && $request->getStructure()->getItems()) { ?>
                 <li>
-                    <a href="javascript:" data-target="parameters">Parameters</a>
+                    <a href="javascript:" onclick="apiBuilderTabClick(this);" data-target="parameters">Parameters</a>
                 </li>
             <?php } ?>
             <li>
-                <a href="javascript:" data-target="response">Response</a>
+                <a href="javascript:" data-target="response" onclick="apiBuilderTabClick(this);">Response</a>
             </li>
         </ul>
 

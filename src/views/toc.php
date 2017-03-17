@@ -5,13 +5,17 @@
 
 use Briedis\ApiBuilder\Method;
 use Briedis\ApiBuilder\MethodGroup;
-
+use Briedis\ApiBuilder\Presenter;
 
 $outputMethod = function (Method $method) {
-    $url = htmlspecialchars($method->getDocUrl());
+    $url = htmlspecialchars(Presenter::getMethodDocUrl($method));
     return "<li><a href='{$url}'>{$method->title}</a></li>";
 };
 
+/**
+ * @param MethodGroup[]|Method[] $items
+ * @return string
+ */
 $outputArray = function (array $items) use (&$outputGroup, &$outputMethod) {
     $html = '';
 
@@ -28,15 +32,14 @@ $outputArray = function (array $items) use (&$outputGroup, &$outputMethod) {
 };
 
 $outputGroup = function (MethodGroup $group) use (&$outputArray) {
-    $html = '
+    $methodUrl = htmlspecialchars(Presenter::getGroupDocUrl($group));
+    /** @noinspection PhpParamsInspection */
+    return "
 		<li>
-			<a href="' . htmlspecialchars($group->getDocUrl()) . '"><b>' . $group->getTitle() . '</b></a>
-			<ul>
-			' . $outputArray($group->getItems()) . '
-			</ul>
+			<a href='{$methodUrl}'><b>{$group->getTitle()}</b></a>
+			<ul>{$outputArray($group->getItems())}</ul>
 		</li>
-	';
-    return $html;
+	";
 };
 
 

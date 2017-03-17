@@ -51,7 +51,7 @@ class RouteBuilder
         // Store method in route, so we can perform validation in the middleware by retrieving the api method
         // Note: validation is not possible for closure style actions
         if (is_array($routeAction)) {
-            $routeAction['apiBuilderMethod'] = is_string($method) ? $method : get_class($method);
+            $routeAction[ApiMethodValidationMiddleware::ACTION_ENDPOINT_KEY] = is_string($method) ? $method : get_class($method);
         }
 
         call_user_func([$this->registrar, $routeMethod], $method::URI, $routeAction);

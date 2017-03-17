@@ -54,24 +54,6 @@ abstract class Method implements ValidatesWhenResolved
     }
 
     /**
-     * Get URL for this method within the documentation page
-     * @return string
-     */
-    public function getDocUrl()
-    {
-        return '#' . $this->getDocElementName();
-    }
-
-    /**
-     * Get <a name=..> for documentation page element
-     * @return string
-     */
-    public function getDocElementName()
-    {
-        return Str::slug(static::METHOD . '-' . static::URI);
-    }
-
-    /**
      * Validate the given class instance.
      * @return void
      * @throws InvalidStructureException

@@ -50,22 +50,4 @@ class MethodGroup
     {
         return $this->title;
     }
-
-    /**
-     * Get URL for this group within the documentation page
-     * @return string
-     */
-    public function getDocUrl()
-    {
-        return '#' . $this->getDocElementName();
-    }
-
-    /**
-     * Get <a name=..> for documentation page element
-     * @return string
-     */
-    public function getDocElementName()
-    {
-        return Str::slug('group-' . $this->title);
-    }
 }

@@ -3,11 +3,11 @@
 namespace Briedis\ApiBuilder;
 
 
+use Illuminate\Support\Str;
+
 class Presenter
 {
     const VIEW_NAMESPACE = 'api-builder';
-    const LARAVEL_RESOURCE_PREFIX = 'packages/briedis/api-builder/';
-    const DEFAULT_RESOURCE_PREFIX = '/public/';
 
     /**
      * @var Method[]|MethodGroup[]
@@ -21,7 +21,7 @@ class Presenter
     private $callbackTranslate;
 
     /**
-     * API domain WITHOUT trailing slash
+     * API domain (https://domain/ or  https://domain/api/v1/, etc.)
      * @var string
      */
     private $domain;
@@ -114,7 +114,7 @@ class Presenter
      */
     public function setDomain($domain)
     {
-        $this->domain = $domain;
+        $this->domain = rtrim($domain, '/');
         return $this;
     }
 
@@ -150,17 +150,44 @@ class Presenter
         return ob_get_clean();
     }
 
+
     /**
-     * Get resource URL
-     * @param string $path
-     * @return string full URL
+     * Get URL for this method within the documentation page
+     * @param Method $method
+     * @return string
      */
-    public static function resourceUrl($path)
+    public static function getMethodDocUrl(Method $method)
     {
-        if (class_exists('URL')) {
-            /** @noinspection PhpUndefinedClassInspection */
-            return \URL::to(self::LARAVEL_RESOURCE_PREFIX . $path);
-        }
-        return self::DEFAULT_RESOURCE_PREFIX . $path;
+        return '#' . self::getMethodDocElementName($method);
+    }
+
+    /**
+     * Get <a name=..> for documentation page element
+     * @param Method $method
+     * @return string
+     */
+    public static function getMethodDocElementName(Method $method)
+    {
+        return Str::slug($method::METHOD . '-' . $method::URI);
+    }
+
+    /**
+     * Get URL for this group within the documentation page
+     * @param MethodGroup $method
+     * @return string
+     */
+    public static function getGroupDocUrl(MethodGroup $method)
+    {
+        return '#' . self::getGroupDocElementName($method);
+    }
+
+    /**
+     * Get <a name=..> for documentation page element
+     * @param MethodGroup $method
+     * @return string
+     */
+    public static function getGroupDocElementName(MethodGroup $method)
+    {
+        return Str::slug('group-' . $method->getTitle());
     }
 }

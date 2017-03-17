@@ -1,29 +1,29 @@
 {
-	"name": "briedis/api-builder",
-	"description": "",
-	"authors": [
-		{
-			"name": "Mārtiņš Briedis",
-			"email": "mbriedis@gmail.com"
-		}
-	],
-	"require": {
-		"php": ">=5.5.0",
-		"illuminate/support": "~4.0|~5.0",
-		"mockery/mockery": "~0.9"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "~4.0"
-	},
-	"autoload": {
-		"psr-0": {
-			"Briedis\\ApiBuilder": "src/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Briedis\\ApiBuilder\\Tests\\": "tests/"
-		}
-	},
-	"minimum-stability": "stable"
+    "name": "briedis/api-builder",
+    "description": "",
+    "authors": [
+        {
+            "name": "Mārtiņš Briedis",
+            "email": "mbriedis@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "illuminate/support": "~5.0",
+        "mockery/mockery": "~0.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Briedis\\ApiBuilder": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Briedis\\ApiBuilder\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable"
 }
