@@ -124,4 +124,13 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase
         ];
         $this->assertTrue($this->v->validate($input), 'Empty array is a valid type');
     }
+
+    public function testOptionalWillAcceptNullValue()
+    {
+        $this->s->int('canBeNull')->optional();
+        $input = [
+            'canBeNull' => null,
+        ];
+        $this->assertTrue($this->v->validate($input), 'Optional parameter can be nullable');
+    }
 }

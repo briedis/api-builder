@@ -77,8 +77,17 @@ abstract class BaseItem
         return $type;
     }
 
+    /**
+     * Validate value against the current value
+     * @param mixed $value
+     * @return bool True if validates
+     */
     public function validate($value)
     {
+        if ($this->isOptional && is_null($value)) {
+            return true;
+        }
+
         if ($this->isArray) {
             return $this->validateArray($value);
         }
