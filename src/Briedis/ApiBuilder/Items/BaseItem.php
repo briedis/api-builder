@@ -104,7 +104,9 @@ abstract class BaseItem
         foreach ($values as $v) {
             if ($this->isFixedValues && !$this->validateFixedValues($v)) {
                 return false;
-            } elseif (!$this->validateValue($v)) {
+            }
+
+            if (!$this->validateValue($v)) {
                 return false;
             }
         }

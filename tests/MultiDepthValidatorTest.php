@@ -4,6 +4,7 @@ namespace Briedis\ApiBuilder\Tests;
 
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Briedis\ApiBuilder\Items\DecimalItem;
+use Briedis\ApiBuilder\StructureBuilder;
 use Briedis\ApiBuilder\StructureBuilder as SB;
 use Briedis\ApiBuilder\StructureValidator;
 use PHPUnit_Framework_TestCase;
@@ -157,5 +158,67 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
         foreach ($badPaths as $v) {
             $this->assertTrue(isset($badFields[$v]), 'Field [' . $v . '] should be missing');
         }
+    }
+
+    public function testValidArrayOfStructures()
+    {
+        $item = (new StructureBuilder('MyStructure'))
+            ->int('id')
+            ->str('name')
+            ->str('status')->values(['one', 'two', 'three'])->optional();
+
+        $whole = (new SB)
+            ->int('someId')
+            ->struct('items', $item)->multiple();
+
+        $structureValidator = new StructureValidator($whole);
+        $structureValidator->validate([
+            'someId' => 666,
+            'items' => [
+                [
+                    'id' => 1,
+                    'name' => 'string',
+                    'status' => 'one',
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'string',
+                    'status' => 'two',
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'string',
+                ],
+            ],
+        ]);
+    }
+
+    public function testInvalidArrayOfStructures()
+    {
+        $item = (new StructureBuilder('MyStructure'))
+            ->int('id')
+            ->str('name');
+
+        $whole = (new SB)->struct('items', $item)->multiple();
+
+        $structureValidator = new StructureValidator($whole);
+
+
+        try {
+            $structureValidator->validate([
+                'items' => [
+                    [
+                        'id' => 1,
+                        'unexpectedNested' => true,
+                    ],
+                ],
+            ]);
+        } catch (InvalidStructureException $e) {
+            self::assertTrue(array_key_exists('items.name', $e->getMissingFields()));
+            self::assertTrue(in_array('items.unexpectedNested', $e->getUnexpectedFields()));
+            return;
+        }
+
+        self::assertFalse(true, 'This should not execute');
     }
 }

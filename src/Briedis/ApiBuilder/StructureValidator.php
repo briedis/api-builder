@@ -58,7 +58,8 @@ class StructureValidator
         // Check for missing fields
         foreach ($this->structure->getItems() as $k => $v) {
             if (!$v->isOptional && !array_key_exists($k, $input)) {
-                $exception->addMissingField($k, $v);
+                $parameterPath = implode('.', array_merge($this->parameterDepthStack, [$k]));
+                $exception->addMissingField($parameterPath, $v);
             }
         }
 
@@ -77,7 +78,7 @@ class StructureValidator
      * @throws InvalidStructureException
      * @throws UnexpectedParameterException
      */
-    public function validateParam($name, $value)
+    private function validateParam($name, $value)
     {
         $item = $this->structure->getItemByName($name);
 
@@ -86,15 +87,29 @@ class StructureValidator
         }
 
         if ($item instanceof StructureItem) {
+            if ($item->isArray) {
+                $this->validateArrayOfStructures($item, $value);
+                return;
+            }
+
             // Recursive validation
             $validator = new self($item->structure, $this->parameterDepthStack);
             $validator->validate($value);
-        } else {
-            if (!$item->validate($value)) {
-                $e = new InvalidParameterTypeException;
-                $e->expectedItem = $item;
-                throw $e;
-            }
+            return;
+        }
+
+        if (!$item->validate($value)) {
+            $e = new InvalidParameterTypeException;
+            $e->expectedItem = $item;
+            throw $e;
+        }
+    }
+
+    private function validateArrayOfStructures(StructureItem $item, array $values)
+    {
+        foreach ($values as $v) {
+            $validator = new self($item->structure, $this->parameterDepthStack);
+            $validator->validate($v);
         }
     }
 }
