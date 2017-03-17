@@ -6,6 +6,7 @@
 echo $methodHtml;
 
 ?>
+
 <script>
     (function (window) {
         'use strict';
@@ -30,7 +31,7 @@ echo $methodHtml;
             for (i in tabsContents) {
                 var tab = tabsContents[i];
                 tab.classList.add('hidden');
-                if (tab.classList.contains(node.getAttribute('data-target')){
+                if (tab.classList.contains(node.dataset.target)) {
                     tab.classList.remove('hidden')
                 }
             }
