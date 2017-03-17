@@ -21,21 +21,26 @@ echo $methodHtml;
 
             for (i in ul.childNodes) {
                 var li = ul.childNodes[i];
-                li.classList.remove('active');
+                if (li.nodeType === Node.ELEMENT_NODE) {
+                    li.classList.remove('active');
+                }
             }
             // Add class to current li element
             node.parentNode.classList.add('active');
 
             // Show needed tab
             var tabsContents = ul.parentNode.querySelectorAll('.tab');
-            for (i in tabsContents) {
-                var tab = tabsContents[i];
+            //debugger;
+            for (i = 0; i < tabsContents.length; i++) {
+                var tab = tabsContents.item(i);
                 tab.classList.add('hidden');
+
                 if (tab.classList.contains(node.dataset.target)) {
                     tab.classList.remove('hidden')
                 }
             }
         };
+
 
         window.apiBuilderTabClick = window.apiBuilderTabClick || handleTabClick;
     })(window);
