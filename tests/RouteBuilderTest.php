@@ -37,14 +37,14 @@ class RouteBuilderTest extends PHPUnit_Framework_TestCase
     public function testGetMethod()
     {
         $method = new GetMethodStub;
-        $this->mock->shouldReceive('get')->with($method::URI, 'action')->once();
+        $this->mock->shouldReceive('get')->once();
         $this->builder->add($method, 'action');
     }
 
     public function testPostMethod()
     {
         $method = new PostMethodStub;
-        $this->mock->shouldReceive('post')->with($method::URI, 'controller@method')->once();
+        $this->mock->shouldReceive('post')->once();
         $this->builder->add($method, 'controller@method');
     }
 
