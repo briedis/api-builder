@@ -20,7 +20,6 @@ class ApiMethodValidationMiddleware
      * @param Closure $next
      * @return mixed
      * @throws InvalidStructureException
-     * @throws InvalidResponseStructureException
      */
     public function handle($request, Closure $next)
     {
@@ -52,13 +51,12 @@ class ApiMethodValidationMiddleware
         try {
             (new StructureValidator($apiEndpoint->getResponse()))->validate($response->getOriginalContent());
         } catch (InvalidStructureException $e) {
-            // Throw a invalid response exception that basically wraps the invalid structure exception
-            // This will help to handle response exceptions specifically
-            $responseException = new InvalidResponseStructureException;
-            $responseException->setBadFields($e->getBadFields());
-            $responseException->setMissingFields($e->getMissingFields());
-            $responseException->setUnexpectedFields($e->getUnexpectedFields());
-            throw $e;
+            // This will do for now, but later we should implement a smarter way to throw notify about errors
+            \Log::error($e->getFormattedMessage(), [
+                'bad' => $e->getBadFields(),
+                'missing' => $e->getMissingFields(),
+                'unexpected' => $e->getUnexpectedFields(),
+            ]);
         }
 
         return $response;

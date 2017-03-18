@@ -30,31 +30,8 @@ class InvalidStructureException extends Exception
     private $missingFields = [];
 
     /**
-     * @param BaseItem[] $badFields
-     */
-    public function setBadFields(array $badFields)
-    {
-        $this->badFields = $badFields;
-    }
-
-    /**
-     * @param \string[] $unexpectedFields
-     */
-    public function setUnexpectedFields(array $unexpectedFields)
-    {
-        $this->unexpectedFields = $unexpectedFields;
-    }
-
-    /**
-     * @param BaseItem[] $missingFields
-     */
-    public function setMissingFields(array $missingFields)
-    {
-        $this->missingFields = $missingFields;
-    }
-
-    /**
      * Attach a bad field
+     *
      * @param string $name
      * @param BaseItem $expectedItem
      */
@@ -65,6 +42,7 @@ class InvalidStructureException extends Exception
 
     /**
      * Attach a field that was given, but was unexpected
+     *
      * @param $name
      */
     public function addUnexpectedField($name)
@@ -74,6 +52,7 @@ class InvalidStructureException extends Exception
 
     /**
      * Get array with fields with errors [field name => expected item]
+     *
      * @return BaseItem[]
      */
     public function getBadFields()
@@ -90,7 +69,9 @@ class InvalidStructureException extends Exception
     }
 
     /**
-     * @return array
+     * List of unexpected field names
+     *
+     * @return string[]
      */
     public function getUnexpectedFields()
     {
@@ -98,7 +79,9 @@ class InvalidStructureException extends Exception
     }
 
     /**
-     * @return array
+     * List of items indexed by field names
+     *
+     * @return BaseItem[]
      */
     public function getMissingFields()
     {
@@ -107,6 +90,7 @@ class InvalidStructureException extends Exception
 
     /**
      * Add a missing field
+     *
      * @param string $name
      * @param BaseItem $expectedItem
      */
