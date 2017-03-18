@@ -4,6 +4,7 @@
 namespace Briedis\ApiBuilder;
 
 
+use Briedis\ApiBuilder\Exceptions\InvalidResponseStructureException;
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Closure;
 
@@ -18,6 +19,8 @@ class ApiMethodValidationMiddleware
      * @param mixed $request
      * @param Closure $next
      * @return mixed
+     * @throws InvalidStructureException
+     * @throws InvalidResponseStructureException
      */
     public function handle($request, Closure $next)
     {
@@ -46,7 +49,17 @@ class ApiMethodValidationMiddleware
         }
 
         // Validate outgoing structure
-        (new StructureValidator($apiEndpoint->getResponse()))->validate($response->getOriginalContent());
+        try {
+            (new StructureValidator($apiEndpoint->getResponse()))->validate($response->getOriginalContent());
+        } catch (InvalidStructureException $e) {
+            // Throw a invalid response exception that basically wraps the invalid structure exception
+            // This will help to handle response exceptions specifically
+            $responseException = new InvalidResponseStructureException;
+            $responseException->setBadFields($e->getBadFields());
+            $responseException->setMissingFields($e->getMissingFields());
+            $responseException->setUnexpectedFields($e->getUnexpectedFields());
+            throw $e;
+        }
 
         return $response;
     }

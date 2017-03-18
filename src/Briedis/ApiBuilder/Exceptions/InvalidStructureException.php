@@ -10,6 +10,11 @@ use Exception;
 class InvalidStructureException extends Exception
 {
     /**
+     * @var string
+     */
+    protected $message = 'Invalid structure';
+
+    /**
      * @var BaseItem[] [name => item, ..]
      */
     private $badFields = [];
@@ -23,6 +28,30 @@ class InvalidStructureException extends Exception
      * @var BaseItem[] [name => item, ..]
      */
     private $missingFields = [];
+
+    /**
+     * @param BaseItem[] $badFields
+     */
+    public function setBadFields(array $badFields)
+    {
+        $this->badFields = $badFields;
+    }
+
+    /**
+     * @param \string[] $unexpectedFields
+     */
+    public function setUnexpectedFields(array $unexpectedFields)
+    {
+        $this->unexpectedFields = $unexpectedFields;
+    }
+
+    /**
+     * @param BaseItem[] $missingFields
+     */
+    public function setMissingFields(array $missingFields)
+    {
+        $this->missingFields = $missingFields;
+    }
 
     /**
      * Attach a bad field
