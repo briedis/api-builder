@@ -221,4 +221,28 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
 
         self::assertFalse(true, 'This should not execute');
     }
+
+    public function testStructureOfArrayReceivesInvalidStructure()
+    {
+        $item = (new StructureBuilder('MyStructure'))
+            ->int('id')
+            ->str('name');
+
+        $whole = (new SB)->struct('items', $item)->multiple();
+
+        $structureValidator = new StructureValidator($whole);
+
+        try {
+            $structureValidator->validate([
+                'items' => [
+                    'invalidDirectArray' => 'value',
+                ],
+            ]);
+        } catch (InvalidStructureException $e) {
+            self::assertTrue(array_key_exists('items', $e->getBadFields()));
+            return;
+        }
+
+        self::assertFalse(true, 'This should not execute');
+    }
 }

@@ -108,6 +108,11 @@ class StructureValidator
     private function validateArrayOfStructures(StructureItem $item, array $values)
     {
         foreach ($values as $v) {
+            if (!is_array($v)) {
+                $e = new InvalidParameterTypeException;
+                $e->expectedItem = $item;
+                throw $e;
+            }
             $validator = new self($item->structure, $this->parameterDepthStack);
             $validator->validate($v);
         }
