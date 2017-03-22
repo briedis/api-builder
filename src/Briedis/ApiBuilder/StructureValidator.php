@@ -87,6 +87,10 @@ class StructureValidator
         }
 
         if ($item instanceof StructureItem) {
+            if ($item->isOptional && is_null($value)) {
+                return;
+            }
+
             if ($item->isArray) {
                 $this->validateArrayOfStructures($item, $value);
                 return;

@@ -245,4 +245,15 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
 
         self::assertFalse(true, 'This should not execute');
     }
+
+    public function testOptionalStructuresCanBeNull()
+    {
+        $item = (new StructureBuilder('MyStructure'));
+
+        $whole = (new SB)->struct('item', $item)->optional();
+
+        $structureValidator = new StructureValidator($whole);
+
+        self::assertTrue($structureValidator->validate(['item' => null]));
+    }
 }
