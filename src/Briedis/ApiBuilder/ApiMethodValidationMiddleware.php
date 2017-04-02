@@ -4,7 +4,6 @@
 namespace Briedis\ApiBuilder;
 
 
-use Briedis\ApiBuilder\Exceptions\InvalidResponseStructureException;
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Closure;
 
@@ -52,12 +51,28 @@ class ApiMethodValidationMiddleware
             (new StructureValidator($apiEndpoint->getResponse()))->validate($response->getOriginalContent());
         } catch (InvalidStructureException $e) {
             // This will do for now, but later we should implement a smarter way to throw notify about errors
-            \Log::error($e->getFormattedMessage(), [
-                'bad' => $e->getBadFields(),
-                'missing' => $e->getMissingFields(),
-                'unexpected' => $e->getUnexpectedFields(),
-            ]);
+            return $this->onInvalidResponseStructure($e, $response);
         }
+
+        return $response;
+    }
+
+    /**
+     * Handle what happens when response structure is not valid. By default, we log an error.
+     * To perform other actions,
+     *
+     * @param InvalidStructureException $e
+     * @param $response
+     * @return mixed Response that will get returned
+     */
+    protected function onInvalidResponseStructure(InvalidStructureException $e, $response)
+    {
+        /** @noinspection PhpUndefinedClassInspection */
+        \Log::error('Response structure is not valid: ' . $e->getFormattedMessage(), [
+            'bad' => $e->getBadFields(),
+            'missing' => $e->getMissingFields(),
+            'unexpected' => $e->getUnexpectedFields(),
+        ]);
 
         return $response;
     }
