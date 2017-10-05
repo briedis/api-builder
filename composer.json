@@ -25,5 +25,12 @@
             "Briedis\\ApiBuilder\\Tests\\": "tests/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Briedis\\ApiBuilder\\ApiBuilderLaravel5ServiceProvider"
+            ]
+        }
+    }
 }
