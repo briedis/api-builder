@@ -6,7 +6,6 @@ namespace Briedis\ApiBuilder;
 
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
-use Illuminate\Support\Str;
 
 abstract class Method implements ValidatesWhenResolved
 {
@@ -67,5 +66,16 @@ abstract class Method implements ValidatesWhenResolved
 
         $validator = new StructureValidator($requestStructure);
         $validator->validate(\Request::input());
+    }
+
+    /**
+     * Retrieve input field (or all)
+     * @param string|null $key
+     * @param mixed|null $default
+     * @return mixed
+     */
+    public function input($key = null, $default = null)
+    {
+        return \Request::input($key, $default);
     }
 }

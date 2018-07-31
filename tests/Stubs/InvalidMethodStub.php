@@ -8,13 +8,17 @@ class InvalidMethodStub extends Method
 {
     const METHOD = 'UNKNOWN-METHOD';
 
-    const URI = 'doesnt-matter';
+    const URI = 'does-not-matter';
 
     public function getRequest()
     {
     }
 
     public function getResponse()
+    {
+    }
+
+    public function validateResolved()
     {
     }
 }

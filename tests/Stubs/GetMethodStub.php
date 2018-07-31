@@ -17,4 +17,8 @@ class GetMethodStub extends Method
     public function getResponse()
     {
     }
+
+    public function validateResolved()
+    {
+    }
 }

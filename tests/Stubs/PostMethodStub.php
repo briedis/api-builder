@@ -17,4 +17,8 @@ class PostMethodStub extends Method
     public function getResponse()
     {
     }
+
+    public function validateResolved()
+    {
+    }
 }

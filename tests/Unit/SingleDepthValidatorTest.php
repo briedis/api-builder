@@ -1,15 +1,16 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 
-namespace Briedis\ApiBuilder\Tests;
+namespace Briedis\ApiBuilder\Tests\Unit;
 
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Briedis\ApiBuilder\Items\DecimalItem;
 use Briedis\ApiBuilder\Items\IntegerItem;
 use Briedis\ApiBuilder\StructureBuilder;
 use Briedis\ApiBuilder\StructureValidator;
-use PHPUnit_Framework_TestCase;
+use Briedis\ApiBuilder\Tests\TestCase;
 
-class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase
+class SingleDepthValidatorTest extends TestCase
 {
     /** @var StructureBuilder */
     private $s;
@@ -19,6 +20,8 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        parent::setUp();
+
         $this->s = new StructureBuilder;
         $this->v = new StructureValidator($this->s);
     }
@@ -145,6 +148,6 @@ class SingleDepthValidatorTest extends PHPUnit_Framework_TestCase
         $input = [
             'canBeNull' => null,
         ];
-        $this->assertTrue($this->v->validate($input), 'Optional parameter can be nullable');
+        $this->assertTrue($this->v->validate($input), 'Optional parameter can be null');
     }
 }

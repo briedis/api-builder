@@ -1,17 +1,16 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
-namespace Briedis\ApiBuilder\Tests;
+namespace Briedis\ApiBuilder\Tests\Unit;
 
 use Briedis\ApiBuilder\Exceptions\InvalidStructureException;
 use Briedis\ApiBuilder\Items\DecimalItem;
 use Briedis\ApiBuilder\StructureBuilder;
-use Briedis\ApiBuilder\StructureBuilder as SB;
 use Briedis\ApiBuilder\StructureValidator;
-use PHPUnit_Framework_TestCase;
+use Briedis\ApiBuilder\Tests\TestCase;
 
-class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
+class MultiDepthValidatorTest extends TestCase
 {
-    /** @var SB */
+    /** @var StructureBuilder */
     private $s;
 
     /** @var StructureValidator */
@@ -19,16 +18,18 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->s = new SB;
+        parent::setUp();
+
+        $this->s = new StructureBuilder;
         $this->v = new StructureValidator($this->s);
     }
 
     public function testValidStructure()
     {
         $this->s
-            ->struct('s1', (new SB)
+            ->struct('s1', (new StructureBuilder)
                 ->int('id')
-            )->struct('s2', (new SB)
+            )->struct('s2', (new StructureBuilder)
                 ->float('decimal')
             )->str('str');
 
@@ -50,10 +51,10 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
         $caught = false;
 
         $this->s
-            ->struct('s11', (new SB)
+            ->struct('s11', (new StructureBuilder)
                 ->float('decimal')
             )
-            ->struct('s22', (new SB)
+            ->struct('s22', (new StructureBuilder)
                 ->float('decimal')
             );
 
@@ -81,11 +82,11 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
     public function testVeryDeepValidStructure()
     {
         $this->s
-            ->struct('s111', (new SB)
-                ->struct('s222', (new SB)
-                    ->struct('s333', (new SB)
-                        ->struct('s444', (new SB)
-                            ->struct('s555', (new SB)
+            ->struct('s111', (new StructureBuilder)
+                ->struct('s222', (new StructureBuilder)
+                    ->struct('s333', (new StructureBuilder)
+                        ->struct('s444', (new StructureBuilder)
+                            ->struct('s555', (new StructureBuilder)
                                 ->int('id')
                             )
                         )
@@ -115,12 +116,12 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
     {
         $this->s
             ->str('1_1')
-            ->struct('1_3', (new SB)
+            ->struct('1_3', (new StructureBuilder)
                 ->str('2_1')
-                ->struct('2_2', (new SB)
+                ->struct('2_2', (new StructureBuilder)
                     ->str('3_1')
-                    ->struct('3_2', (new SB)
-                        ->struct('4_1', (new SB)
+                    ->struct('3_2', (new StructureBuilder)
+                        ->struct('4_1', (new StructureBuilder)
                             ->bool('5_1')
                             ->int('5_2')
                         )
@@ -167,12 +168,13 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
             ->str('name')
             ->str('status')->values(['one', 'two', 'three'])->optional();
 
-        $whole = (new SB)
+        $whole = (new StructureBuilder)
             ->int('someId')
             ->struct('items', $item)->multiple();
 
         $structureValidator = new StructureValidator($whole);
-        $structureValidator->validate([
+
+        $result = $structureValidator->validate([
             'someId' => 666,
             'items' => [
                 [
@@ -191,6 +193,8 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
                 ],
             ],
         ]);
+
+        self::assertTrue($result);
     }
 
     public function testInvalidArrayOfStructures()
@@ -199,7 +203,7 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
             ->int('id')
             ->str('name');
 
-        $whole = (new SB)->struct('items', $item)->multiple();
+        $whole = (new StructureBuilder)->struct('items', $item)->multiple();
 
         $structureValidator = new StructureValidator($whole);
 
@@ -228,7 +232,7 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
             ->int('id')
             ->str('name');
 
-        $whole = (new SB)->struct('items', $item)->multiple();
+        $whole = (new StructureBuilder)->struct('items', $item)->multiple();
 
         $structureValidator = new StructureValidator($whole);
 
@@ -250,7 +254,7 @@ class MultiDepthValidatorTest extends PHPUnit_Framework_TestCase
     {
         $item = (new StructureBuilder('MyStructure'));
 
-        $whole = (new SB)->struct('item', $item)->optional();
+        $whole = (new StructureBuilder)->struct('item', $item)->optional();
 
         $structureValidator = new StructureValidator($whole);
 

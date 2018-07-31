@@ -1,18 +1,18 @@
 <?php
 
-namespace Briedis\ApiBuilder\Tests;
+namespace Briedis\ApiBuilder\Tests\Unit;
 
 use Briedis\ApiBuilder\RouteBuilder;
 use Briedis\ApiBuilder\Tests\Stubs\GetMethodStub;
 use Briedis\ApiBuilder\Tests\Stubs\InvalidMethodStub;
 use Briedis\ApiBuilder\Tests\Stubs\PostMethodStub;
+use Briedis\ApiBuilder\Tests\TestCase;
 use Illuminate\Contracts\Routing\Registrar;
 use Mockery;
 use Mockery\Mock;
 use Mockery\MockInterface;
-use PHPUnit_Framework_TestCase;
 
-class RouteBuilderTest extends PHPUnit_Framework_TestCase
+class RouteBuilderTest extends TestCase
 {
     /** @var Registrar|MockInterface|Mock */
     private $mock;
@@ -20,16 +20,10 @@ class RouteBuilderTest extends PHPUnit_Framework_TestCase
     /** @var RouteBuilder */
     private $builder;
 
-
-    public static function tearDownAfterClass()
-    {
-        Mockery::close();
-        parent::tearDownAfterClass();
-    }
-
     protected function setUp()
     {
         parent::setUp();
+
         $this->mock = Mockery::mock(Registrar::class);
         $this->builder = new RouteBuilder($this->mock);
     }
@@ -38,20 +32,24 @@ class RouteBuilderTest extends PHPUnit_Framework_TestCase
     {
         $method = new GetMethodStub;
         $this->mock->shouldReceive('get')->once();
-        $this->builder->add($method, 'action');
+        $result = $this->builder->add($method, 'action');
+
+        self::assertInstanceOf(RouteBuilder::class, $result);
     }
 
     public function testPostMethod()
     {
         $method = new PostMethodStub;
         $this->mock->shouldReceive('post')->once();
-        $this->builder->add($method, 'controller@method');
+        $result = $this->builder->add($method, 'controller@method');
+
+        self::assertInstanceOf(RouteBuilder::class, $result);
     }
 
     public function testInvalidMethod()
     {
         $method = new InvalidMethodStub;
-        self::setExpectedException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
         $this->builder->add($method, 'controller@method');
     }
 }

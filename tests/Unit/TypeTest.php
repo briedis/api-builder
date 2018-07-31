@@ -1,6 +1,6 @@
 <?php
 
-namespace Briedis\ApiBuilder\Tests;
+namespace Briedis\ApiBuilder\Tests\Unit;
 
 use Briedis\ApiBuilder\Items\BaseItem;
 use Briedis\ApiBuilder\Items\BooleanItem;
@@ -8,10 +8,10 @@ use Briedis\ApiBuilder\Items\DecimalItem;
 use Briedis\ApiBuilder\Items\IntegerItem;
 use Briedis\ApiBuilder\Items\MixedItem;
 use Briedis\ApiBuilder\Items\StringItem;
-use PHPUnit_Framework_TestCase;
+use Briedis\ApiBuilder\Tests\TestCase;
 use stdClass;
 
-class TypeTest extends PHPUnit_Framework_TestCase
+class TypeTest extends TestCase
 {
     public function testInteger()
     {
