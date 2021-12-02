@@ -3,9 +3,6 @@
 
 namespace Briedis\ApiBuilder;
 
-
-use Illuminate\Support\Str;
-
 class MethodGroup
 {
     /**
