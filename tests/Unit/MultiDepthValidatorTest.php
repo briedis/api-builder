@@ -16,7 +16,7 @@ class MultiDepthValidatorTest extends TestCase
     /** @var StructureValidator */
     private $v;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
