@@ -20,7 +20,7 @@ class RouteBuilderTest extends TestCase
     /** @var RouteBuilder */
     private $builder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
